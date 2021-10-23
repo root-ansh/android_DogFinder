@@ -11,3 +11,11 @@ The app uses mvvm clean architecture for scalability and easy testing
 - `activity and other ui components` provides mechanism to display data and interact with user
 
 ![](https://miro.medium.com/max/896/1*SjczBI6N688JKSiBiYoTcA.png)
+
+
+## Testing
+
+- `Mockk` and  `JUnit` Frameworks are used to provide unit tests for various layers 
+
+## Download
+- You can find the latest generated apk [here.](/apk)

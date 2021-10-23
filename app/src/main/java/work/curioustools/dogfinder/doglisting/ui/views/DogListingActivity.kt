@@ -19,32 +19,30 @@ class DogListingActivity : BaseActivity(), VBHolder<ActivityDogListingBinding> b
         super.onCreate(savedInstanceState)
         ActivityDogListingBinding.inflate(layoutInflater).setAsContentView(this)
 
-
         initObservers()
 
         withBinding {
-            btPrevious.setOnClickListener {
-                viewModel.fetchRandomDog(false)
-                setDynamicData(null, BadDataBehavior.SHOW_LOADING)
-            }
-            btNext.setOnClickListener {
-                viewModel.fetchRandomDog(true)
-                setDynamicData(null, BadDataBehavior.SHOW_LOADING)
-            }
-
+            btPrevious.setOnClickListener { requestOrSetCachedData(isForwardRequest = false) }
+            btNext.setOnClickListener { requestOrSetCachedData(isForwardRequest = true) }
             //initialCall
             btNext.performClick()
         }
+    }
 
-
-
+    private fun requestOrSetCachedData(isForwardRequest: Boolean) {
+        val cache = viewModel.fetchRandomDogOrGetCachedDog(isForwardRequest)
+        if (cache == null) setDynamicData(null, BadDataBehavior.SHOW_LOADING)
+        else setDynamicData(cache, BadDataBehavior.SHOW_FALLBACK)
     }
 
     private fun initObservers() {
         val ctx = this
         viewModel.randomDogLiveData.observe(ctx) {
             when (it) {
-                is BaseResponse.Success -> setDynamicData(it.body, BadDataBehavior.SHOW_FALLBACK)
+                is BaseResponse.Success -> {
+                    val data = it.body
+                    setDynamicData(data, BadDataBehavior.SHOW_FALLBACK)
+                }
                 is BaseResponse.Failure -> {
                     it.showAsToast(ctx)
                     setDynamicData(null, BadDataBehavior.SHOW_FALLBACK)
@@ -71,23 +69,20 @@ class DogListingActivity : BaseActivity(), VBHolder<ActivityDogListingBinding> b
                 }
             }
             else {
-                getNullableBinding()?.run {
-                    ivLoading.visibility = View.GONE
-                    btPrevious.run {
-                        isEnabled = data.requestCount > 1
-                        val bgTint = if (data.requestCount > 1) R.color.blue_1a237e else R.color.grey_8f8f8f
-                        backgroundTintList = ContextCompat.getColorStateList(ctx, bgTint)
-                    }
-                    ivDog.loadImageFromInternet(
-                        url = data.image,
-                        placeholder = R.drawable.bg_image_placeholder,
-                        error = R.drawable.bg_image_error,
-                        fallback = R.drawable.bg_image_fallback,
-                    )
+                ivLoading.visibility = View.GONE
+                btPrevious.run {
+                    isEnabled = data.requestCount > 1
+                    val bgTint = if (data.requestCount > 1) R.color.blue_1a237e else R.color.grey_8f8f8f
+                    backgroundTintList = ContextCompat.getColorStateList(ctx, bgTint)
                 }
+                ivDog.loadImageFromInternet(
+                    url = data.image,
+                    placeholder = R.drawable.bg_image_placeholder,
+                    error = R.drawable.bg_image_error,
+                    fallback = R.drawable.bg_image_fallback,
+                )
             }
         }
-
     }
 
     @Keep

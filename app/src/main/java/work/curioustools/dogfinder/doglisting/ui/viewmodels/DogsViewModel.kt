@@ -10,15 +10,18 @@ class DogsViewModel(
     private val getRandomDogUseCase: GetRandomDogUseCase
 ) : ViewModel() {
 
+    private val cachedRequests = mutableMapOf<Int, DogImage>()
 
     val randomDogLiveData: LiveData<BaseResponse<DogImage>> = Transformations.switchMap(getRandomDogUseCase.liveData) {
         val livedata = MutableLiveData<BaseResponse<DogImage>>()
-        when(it){
+        when (it) {
             is BaseResponse.Success -> {
-                livedata.value = BaseResponse.Success(DogImage(currentReqCount,it.body.url?:""))
+                val data = DogImage(currentReqCount, it.body.url ?: "")
+                cachedRequests[currentReqCount] = data
+                livedata.value = BaseResponse.Success(data)
             }
             is BaseResponse.Failure -> {
-                livedata.value = BaseResponse.Failure(null,it.statusCode,it.exception)
+                livedata.value = BaseResponse.Failure(null, it.statusCode, it.exception)
             }
         }
         livedata
@@ -26,12 +29,17 @@ class DogsViewModel(
 
     private var currentReqCount = 0
 
-    fun fetchRandomDog(isForwardRequest: Boolean) {
-        if (isForwardRequest) currentReqCount++ else {
-            if(currentReqCount > 0) currentReqCount--
-            else currentReqCount = 0
+    fun fetchRandomDogOrGetCachedDog(isForwardRequest: Boolean): DogImage? {
+       currentReqCount = if (isForwardRequest) currentReqCount + 1
+        else {
+            if (currentReqCount > 0) currentReqCount - 1
+            else 0
         }
-        getRandomDogUseCase.requestForData(Unit)
+        return if(cachedRequests[currentReqCount]!=null) cachedRequests[currentReqCount]
+        else{
+            getRandomDogUseCase.requestForData(Unit)
+            null
+        }
     }
 
 

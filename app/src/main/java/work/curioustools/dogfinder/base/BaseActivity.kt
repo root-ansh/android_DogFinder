@@ -1,4 +1,4 @@
-package work.curioustools.dogfinder
+package work.curioustools.dogfinder.base
 
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity

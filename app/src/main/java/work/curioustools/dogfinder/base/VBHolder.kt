@@ -5,6 +5,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 
+
+// utility class for providing viewbinding support to any lifecycle owner
 interface VBHolder<B : ViewBinding> {
     var bindingHolder: B?
 
@@ -27,21 +29,18 @@ interface VBHolder<B : ViewBinding> {
         this.bindingHolder =null
     }
 
+
+    // A nifty little extension on binding of the children class which will allow
+    // to both set and unset at the same time using lifecycle owner.
     fun B.setAsContentView(activity: AppCompatActivity) {
         initHolder(this)
-        registerLifecycle(activity)
-        activity.setContentView(this.root)
-    }
-
-    private fun registerLifecycle(lifecycleOwner: LifecycleOwner) {
-        lifecycleOwner.lifecycle.addObserver(
-            object : DefaultLifecycleObserver {
+        activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
                 override fun onDestroy(owner: LifecycleOwner) {
                     owner.lifecycle.removeObserver(this)
                     destroyBinding()
                 }
-            }
-        )
+            })
+        activity.setContentView(this.root)
     }
 
     companion object {
@@ -50,6 +49,11 @@ interface VBHolder<B : ViewBinding> {
     }
 }
 
+/*
+ * an implementation of VBHolder which will be providing the implementation logic to each activity/fragment
+ * since the main implementaion logic could only run after onCreate/ onCreateView, this class only provides
+ * us the benefit of not writing `override val bindingHolder: Binding? = null` multiple times
+ * */
 class VBHolderImpl<VB : ViewBinding> : VBHolder<VB> {
     override var bindingHolder: VB? = null
 

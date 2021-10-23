@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_circle_solid_white.xml" value="0.19444444444444445" />
+        <entry key="app/src/main/res/drawable/bg_image_error_res.xml" value="0.2212962962962963" />
+        <entry key="app/src/main/res/drawable/bg_image_fallback.xml" value="0.2212962962962963" />
+        <entry key="app/src/main/res/drawable/bg_rect_so_grey_curve8.xml" value="0.2212962962962963" />
+        <entry key="app/src/main/res/layout/activity_dog_listing.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
     </option>

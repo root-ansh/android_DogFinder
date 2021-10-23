@@ -21,12 +21,24 @@ import java.net.Socket
 import okhttp3.Request
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
-class NetworkUtils {
+// a handy interceptor which will check for both internet connectivity and availability
+class InternetCheckInterceptor(private val context: Context? = null):Interceptor{
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        if (context == null) return chain.proceed(chain.request())
+
+        return when {
+            !isConnectedToInternetProvider(context) -> throw Exception(BaseResponseType.NO_INTERNET_CONNECTION.msg)
+            !isReceivingInternetPackets() -> throw IOException(BaseResponseType.NO_INTERNET_PACKETS_RECEIVED.msg)
+            else -> chain.proceed(chain.request())
+        }
+    }
+
     companion object {
         @JvmStatic
         @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
@@ -72,6 +84,7 @@ class NetworkUtils {
     }
 }
 
+// Provides instances of various objects required for internet connection
 object NetworkDI {
     fun getOkHttpClient(
         connectTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
@@ -130,13 +143,13 @@ object NetworkDI {
 
 }
 
+/**
+ * Retrofit provides a response of format Response(isSuccessful:True/False, body:T/null,...)
+ * it treats all failures as null . this Response object on its own is enough to know about the
+ * json response, but for convenience we can use a unified sealed class for handling high level
+ * distinctions,such as success, failure, token expire failure etc.
+ * */
 fun <T> Call<T>.executeAndUnify(enableLogging: Boolean = false): BaseResponse<T> {
-    /**
-     * Retrofit provides a response of format Response(isSuccessful:True/False, body:T/null,...)
-     * it treats all failures as null . this Response object on its own is enough to know about the
-     * json response, but for convenience we can use a unified sealed class for handling high level
-     * distinctions,such as success, failure, token expire failure etc.
-     * */
     return try {
         val response: Response<T?> = this.execute()
         if (enableLogging) {
@@ -146,29 +159,28 @@ fun <T> Call<T>.executeAndUnify(enableLogging: Boolean = false): BaseResponse<T>
         when {
             response.isSuccessful -> {
                 when (val body = response.body()) {
-                    null -> BaseResponse.Failure(body, BaseResponseType.APP_NULL_RESPONSE_BODY.code)
+                    null -> BaseResponse.Failure(body, BaseResponseType.APP_NULL_RESPONSE_BODY)
                     else -> BaseResponse.Success(body)
                 }
             }
             else -> {
                 val code = response.code()
-                val msg = BaseResponseType.getStatusMsgOrDefault(code)
                 val body = response.body()
-                if (body is BaseDto && body.error.isNullOrBlank()) body.error = msg  //if body is of type BaseDto(which it should be), it will set error msg if not already set
-                val resp = BaseResponse.Failure(body, code)
-                resp.statusMsg = msg
-                resp.exception = Exception(msg)
+                val status = BaseResponseType.getStatusOrDefault(code)
+                val exception = Exception(status.msg)
+                val resp = BaseResponse.Failure(body, status, exception)
+                resp.exception = exception
                 resp
             }
         }
     }
     catch (t: Throwable) {
-        BaseResponse.Failure(null, BaseResponseType.UNRECOGNISED.code, t)
+        BaseResponse.Failure(null, BaseResponseType.getStatusFromException(t), t)
     }
 
 }
 
-
+// debuggin extensions for logging
 fun Request?.printRequest() {
 
     println("=====<Request>=====")
@@ -183,6 +195,7 @@ fun Request?.printRequest() {
     println("=====</Request>=====")
 }
 
+// debuggin extensions for logging
 fun <T> Response<T>?.printResponse() {
     println("=====<Response>=====")
     this?.let {
@@ -203,27 +216,18 @@ fun <T> Response<T>?.printResponse() {
     println("=====</Response>=====")
 }
 
+// debuggin extensions for logging
 fun <T> BaseResponse<T>.printBaseResponse() {
     println("=====<BaseResponse> ========")
     val resp = this
-    println("response code =" + resp.statusCode)
-    println("response msg= " + resp.statusMsg)
+    println("response status =" + resp.status)
     when (resp) {
         is BaseResponse.Failure -> {
             println("response = ${resp.body}")
             println("exception = ${resp.exception}")
         }
         is BaseResponse.Success -> {
-            (resp.body as? BaseDto)?.let {
-                println("current response extends BaseDto.class")
-                println("error:" + it.error)
-                println("limit:" + it.limit)
-                println("currentPage:" + it.currentPage)
-                println("totalPages:" + it.totalPages)
-                println("offset:" + it.offset)
-                println("perPageEntries:" + it.perPageEntries)
-                println("totalEntries:" + it.totalEntries)
-            }
+            println("response = ${resp.body}")
         }
     }
 
@@ -231,6 +235,8 @@ fun <T> BaseResponse<T>.printBaseResponse() {
 
 }
 
+
+// view extension for loading image via glide
 fun AppCompatImageView.loadImageFromInternet(url: String, @DrawableRes placeholder: Int, @DrawableRes error: Int = placeholder, @DrawableRes fallback: Int = placeholder) {
     Glide
         .with(this.context)
@@ -242,7 +248,7 @@ fun AppCompatImageView.loadImageFromInternet(url: String, @DrawableRes placehold
         .into(this)
 }
 
-
+// small extension for showing error as a toast
 fun <T> BaseResponse.Failure<T>.showAsToast(context: Context) {
-    Toast.makeText(context, "${this.statusMsg} || ${this.exception.message}", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, "${this.status}|| ${this.exception.message}", Toast.LENGTH_SHORT).show()
 }

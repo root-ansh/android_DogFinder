@@ -10,7 +10,7 @@ class DogsApiTest{
     @ExperimentalCoroutinesApi
     @Test
     fun testAPiSuccess() {
-        val data = DogListingDI.getDogsApi().getImage().executeAndUnify(true)
+        val data = DogListingDI.getDogsApi(isDebug = true).getImage().executeAndUnify(enableLogging = true)
         data.printBaseResponse()
         println(data)
     }

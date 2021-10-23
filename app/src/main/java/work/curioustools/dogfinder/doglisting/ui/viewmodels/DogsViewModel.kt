@@ -6,11 +6,13 @@ import work.curioustools.dogfinder.doglisting.api.DogImageDto
 import work.curioustools.dogfinder.doglisting.api.GetRandomDogUseCase
 import work.curioustools.dogfinder.doglisting.ui.models.DogImage
 
+// viewmodel class handling all the business logic
 class DogsViewModel(
     private val getRandomDogUseCase: GetRandomDogUseCase
 ) : ViewModel() {
 
     private val cachedRequests = mutableMapOf<Int, DogImage>()
+    private var currentReqCount = 0
 
     val randomDogLiveData: LiveData<BaseResponse<DogImage>> = Transformations.switchMap(getRandomDogUseCase.liveData) {
         val livedata = MutableLiveData<BaseResponse<DogImage>>()
@@ -21,13 +23,11 @@ class DogsViewModel(
                 livedata.value = BaseResponse.Success(data)
             }
             is BaseResponse.Failure -> {
-                livedata.value = BaseResponse.Failure(null, it.statusCode, it.exception)
+                livedata.value = BaseResponse.Failure(null, it.status, it.exception)
             }
         }
         livedata
     }
-
-    private var currentReqCount = 0
 
     fun fetchRandomDogOrGetCachedDog(isForwardRequest: Boolean): DogImage? {
        currentReqCount = if (isForwardRequest) currentReqCount + 1

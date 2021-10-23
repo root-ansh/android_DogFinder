@@ -1,8 +1,6 @@
 package work.curioustools.dogfinder.base
 
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity: AppCompatActivity(){
-
-}
+//base class for activity. currently doesn't do anything but could be used for common operations  in future
+abstract class BaseActivity: AppCompatActivity()

@@ -1,4 +1,6 @@
 package work.curioustools.dogfinder
 
-class DogFinderApp {
+import android.app.Application
+
+class DogFinderApp :Application(){
 }

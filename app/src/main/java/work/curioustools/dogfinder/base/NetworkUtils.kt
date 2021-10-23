@@ -1,29 +1,25 @@
 package work.curioustools.dogfinder.base
 
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import java.util.*
 import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresPermission
 import androidx.annotation.WorkerThread
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import java.net.InetSocketAddress
-import java.net.Socket
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.net.InetSocketAddress
+import java.net.Socket
 import okhttp3.Request
-import retrofit2.CallAdapter
-import retrofit2.Converter
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
@@ -31,64 +27,6 @@ import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
 class NetworkUtils {
-    object GetObjects {
-        fun getOkHttpClient(
-            connectTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
-            writeTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
-            readTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
-            retryOnConnectionFailure: Boolean = true,
-            interceptors: List<Interceptor> = listOf(),
-            networkInterceptors: List<Interceptor> = listOf(),
-            socketFactory: Pair<SSLSocketFactory, X509TrustManager>? = null
-        ): OkHttpClient {
-            return OkHttpClient.Builder().let { builder ->
-                builder.connectTimeout(connectTimeout.first, connectTimeout.second)
-                builder.writeTimeout(writeTimeout.first, writeTimeout.second)
-                builder.readTimeout(readTimeout.first, readTimeout.second)
-                builder.retryOnConnectionFailure(retryOnConnectionFailure)
-                interceptors.forEach { builder.addInterceptor(it) }
-                networkInterceptors.forEach { builder.addNetworkInterceptor(it) }
-                socketFactory?.let { pair -> kotlin.runCatching { builder.sslSocketFactory(pair.first, pair.second) } }
-                builder.build()
-            }
-        }
-
-        fun getGsonOrNull(serializeNulls: Boolean = false): Gson? {
-            return kotlin.runCatching {
-                GsonBuilder().run {
-                    if (serializeNulls) serializeNulls()
-                    create()
-                }
-            }.getOrNull()
-        }
-
-        fun getGsonConvertorOrNull(gson: Gson): GsonConverterFactory? {
-            return kotlin.runCatching { GsonConverterFactory.create(gson) }.getOrNull()
-        }
-
-
-        fun getRetrofit(
-            baseUrl: String = "",
-            client: OkHttpClient,
-            convertorFactories: List<Converter.Factory> = listOf(),
-            callAdapterFactories: List<CallAdapter.Factory> = listOf(),
-            callbackExecutor: Executor? = null,
-            callFactory: okhttp3.Call.Factory? = null,
-            validateEagerly: Boolean? = null,
-        ): Retrofit {
-            return Retrofit.Builder().let { builder ->
-                convertorFactories.forEach { builder.addConverterFactory(it) }
-                callAdapterFactories.forEach { builder.addCallAdapterFactory(it) }
-                baseUrl.let { builder.baseUrl(baseUrl) }
-                client.let { builder.client(it) }
-                callFactory?.let { builder.callFactory(it) }
-                callbackExecutor?.let { builder.callbackExecutor(it) }
-                validateEagerly?.let { builder.validateEagerly(it) }
-                builder.build()
-            }
-        }
-
-    }
     companion object {
         @JvmStatic
         @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
@@ -134,6 +72,64 @@ class NetworkUtils {
     }
 }
 
+object NetworkDI {
+    fun getOkHttpClient(
+        connectTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
+        writeTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
+        readTimeout: Pair<Long, TimeUnit> = Pair(1L, TimeUnit.MINUTES),
+        retryOnConnectionFailure: Boolean = true,
+        interceptors: List<Interceptor> = listOf(),
+        networkInterceptors: List<Interceptor> = listOf(),
+        socketFactory: Pair<SSLSocketFactory, X509TrustManager>? = null
+    ): OkHttpClient {
+        return OkHttpClient.Builder().let { builder ->
+            builder.connectTimeout(connectTimeout.first, connectTimeout.second)
+            builder.writeTimeout(writeTimeout.first, writeTimeout.second)
+            builder.readTimeout(readTimeout.first, readTimeout.second)
+            builder.retryOnConnectionFailure(retryOnConnectionFailure)
+            interceptors.forEach { builder.addInterceptor(it) }
+            networkInterceptors.forEach { builder.addNetworkInterceptor(it) }
+            socketFactory?.let { pair -> kotlin.runCatching { builder.sslSocketFactory(pair.first, pair.second) } }
+            builder.build()
+        }
+    }
+
+    fun getGsonOrNull(serializeNulls: Boolean = false): Gson? {
+        return kotlin.runCatching {
+            GsonBuilder().run {
+                if (serializeNulls) serializeNulls()
+                create()
+            }
+        }.getOrNull()
+    }
+
+    fun getGsonConvertorOrNull(gson: Gson): GsonConverterFactory? {
+        return kotlin.runCatching { GsonConverterFactory.create(gson) }.getOrNull()
+    }
+
+    fun getRetrofit(
+        baseUrl: String = "",
+        client: OkHttpClient,
+        convertorFactories: List<Converter.Factory> = listOf(),
+        callAdapterFactories: List<CallAdapter.Factory> = listOf(),
+        callbackExecutor: Executor? = null,
+        callFactory: okhttp3.Call.Factory? = null,
+        validateEagerly: Boolean? = null,
+    ): Retrofit {
+        return Retrofit.Builder().let { builder ->
+            convertorFactories.forEach { builder.addConverterFactory(it) }
+            callAdapterFactories.forEach { builder.addCallAdapterFactory(it) }
+            baseUrl.let { builder.baseUrl(baseUrl) }
+            client.let { builder.client(it) }
+            callFactory?.let { builder.callFactory(it) }
+            callbackExecutor?.let { builder.callbackExecutor(it) }
+            validateEagerly?.let { builder.validateEagerly(it) }
+            builder.build()
+        }
+    }
+
+}
+
 fun <T> Call<T>.executeAndUnify(enableLogging: Boolean = false): BaseResponse<T> {
     /**
      * Retrofit provides a response of format Response(isSuccessful:True/False, body:T/null,...)
@@ -173,7 +169,7 @@ fun <T> Call<T>.executeAndUnify(enableLogging: Boolean = false): BaseResponse<T>
 }
 
 
-fun Request?.printRequest(msg: String = "") {
+fun Request?.printRequest() {
 
     println("=====<Request>=====")
     this?.let {
@@ -183,30 +179,27 @@ fun Request?.printRequest(msg: String = "") {
         println("logCurrentCall: is https: ${it.isHttps}")
         println("logCurrentCall: method ${it.method()}")
         println("logCurrentCall: url ${it.url()}")
-
     } ?: println("null")
     println("=====</Request>=====")
-
-
 }
 
 fun <T> Response<T>?.printResponse() {
     println("=====<Response>=====")
     this?.let {
-        println( "body = ${it.body()})")
-        println( "it.code = ${it.code()} ")
-        println( "it.isSuccessful = ${it.isSuccessful} ")
-        println( "msg = ${it.message()}")
-        println( "headers:")
-        it.headers().toMultimap().forEach { (key, value) -> println( "\t $key : $value") }
-        println( "it.errorBody = ${it.errorBody()} ")
-        println( "it.raw request = ${it.raw().request()} ")
-        println( "it.raw request body= ${it.raw().request().body()} ")
-        println( "it.raw request headers= ${it.raw().request().headers()} ")
-        println( "it.raw response= ${it.raw()} ")
-        println( "it.raw response body= ${it.raw().body()} ")
-        println( "it.raw response body msg= ${it.raw().message()} ")
-    }?: println("null")
+        println("body = ${it.body()})")
+        println("it.code = ${it.code()} ")
+        println("it.isSuccessful = ${it.isSuccessful} ")
+        println("msg = ${it.message()}")
+        println("headers:")
+        it.headers().toMultimap().forEach { (key, value) -> println("\t $key : $value") }
+        println("it.errorBody = ${it.errorBody()} ")
+        println("it.raw request = ${it.raw().request()} ")
+        println("it.raw request body= ${it.raw().request().body()} ")
+        println("it.raw request headers= ${it.raw().request().headers()} ")
+        println("it.raw response= ${it.raw()} ")
+        println("it.raw response body= ${it.raw().body()} ")
+        println("it.raw response body msg= ${it.raw().message()} ")
+    } ?: println("null")
     println("=====</Response>=====")
 }
 
@@ -247,4 +240,9 @@ fun AppCompatImageView.loadImageFromInternet(url: String, @DrawableRes placehold
         .fallback(fallback)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
+}
+
+
+fun <T> BaseResponse.Failure<T>.showAsToast(context: Context) {
+    Toast.makeText(context, "${this.statusMsg} || ${this.exception.message}", Toast.LENGTH_SHORT).show()
 }

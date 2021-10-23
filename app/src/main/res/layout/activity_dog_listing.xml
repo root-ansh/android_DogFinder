@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".doglisting.MainActivity">
+    tools:context=".doglisting.ui.views.DogListingActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivDog"
@@ -13,12 +13,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="42dp"
         android:scaleType="fitCenter"
+        android:minHeight="100dp"
         app:layout_constraintBottom_toTopOf="@id/btNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-
         />
 
 
@@ -27,9 +26,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="36dp"
-        android:background="@drawable/bg_circle_solid_white"
-        android:backgroundTint="@color/color_1a237e"
-        android:elevation="4dp"
+        android:background="@drawable/bg_filled_circle"
+        android:backgroundTint="@color/grey_8f8f8f"
         android:padding="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_arrow_left"
@@ -42,14 +40,24 @@
         android:layout_height="48dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/bg_circle_solid_white"
-        android:backgroundTint="@color/color_1a237e"
-        android:elevation="4dp"
+        android:background="@drawable/bg_filled_circle"
+        android:backgroundTint="@color/blue_1a237e"
         android:padding="8dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_arrow_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLoading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/btPrevious"
+        app:layout_constraintEnd_toEndOf="@id/btNext"
+        app:layout_constraintTop_toTopOf="@id/btPrevious"
+        app:layout_constraintBottom_toBottomOf="@id/btNext"
+        app:srcCompat="@drawable/bg_image_placeholder"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

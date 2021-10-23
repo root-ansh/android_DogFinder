@@ -1,0 +1,7 @@
+<resources >
+    <style name="Theme.DogFinder" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_1a237e</item>
+        <item name="colorPrimaryDark">@color/color_1a237e</item>
+        <item name="colorAccent">@color/color_1a237e</item>
+    </style>
+</resources>

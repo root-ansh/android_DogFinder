@@ -43,6 +43,11 @@ class DogsViewModel(
     }
 
 
+    override fun onCleared() {
+        getRandomDogUseCase.cancel()
+        super.onCleared()
+    }
+
     companion object {
         fun getInstance(owner: ViewModelStoreOwner, getRandomDogUseCase: GetRandomDogUseCase): DogsViewModel {
             val f = object : ViewModelProvider.Factory {

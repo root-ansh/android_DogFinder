@@ -56,3 +56,6 @@ jobs:
 #          GITHUB_TOKEN: ${{ github.token }}
 
 
+# awesome : https://github.com/zhaobozhen/LibChecker/blob/master/.github/workflows/android.yml
+
+#allows failing gradle if lints don't pass : https://github.com/yutailang0119/action-android-lint:

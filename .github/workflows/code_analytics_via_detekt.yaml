@@ -24,6 +24,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
+    #https://crontab.guru/
     - cron: '26 10 * * 1'
 
   # Allows you to run this workflow manually from the Actions tab

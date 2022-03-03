@@ -34,7 +34,7 @@ jobs:
           #server-id: something
           #settings-path: ${{ github.workspace }}
 
-      #[github runner action]
+      #[github runner action] build/test/other actions with gradle :https://github.com/marketplace/actions/gradle-build-action
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.1.3
         with:
@@ -46,8 +46,8 @@ jobs:
       # run: chmod +x gradlew
 
       # [host cli action] run gradle build
-      - name: Build with Gradle
-        run: ./gradlew build
+#      - name: Build with Gradle
+#        run: ./gradlew build
 
 #      - name: Build with Maven
 #        run: mvn -B package --file pom.xml

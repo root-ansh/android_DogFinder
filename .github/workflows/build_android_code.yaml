@@ -59,3 +59,5 @@ jobs:
 # awesome : https://github.com/zhaobozhen/LibChecker/blob/master/.github/workflows/android.yml
 
 #allows failing gradle if lints don't pass : https://github.com/yutailang0119/action-android-lint:
+
+# how to upload android apk/logs https://andresand.medium.com/android-test-reporting-with-github-actions-876dbf6abeb0

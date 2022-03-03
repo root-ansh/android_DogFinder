@@ -24,7 +24,7 @@ jobs:
       # [github runner action] do something with https://github.com/actions/checkout
       - uses: actions/checkout@v2
 
-      # [github runner action] setup jdk, gradle (android,mvn has already been set up by default)
+      # [github runner action] setup jdk
       - name: set up JDK 11
         uses: actions/setup-java@v2
         with:
@@ -33,6 +33,13 @@ jobs:
           cache: gradle
           #server-id: something
           #settings-path: ${{ github.workspace }}
+
+      #[github runner action]
+      - name: Gradle Build Action
+        uses: gradle/gradle-build-action@v2.1.3
+        with:
+          arguments: build
+
 
       # [host cli action] grant permissions(not required if asked for permissions beforehand)
       # - name: Grant execute permission for gradlew

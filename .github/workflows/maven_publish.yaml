@@ -6,7 +6,7 @@ jobs:
 
 ## This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 ## For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-#
+#https://selectfrom.dev/using-github-actions-to-automatically-publish-gradle-build-artifacts-d71c915cfa4:
 #name: Maven Package
 #
 ##---------------------------------------------------------------------------------------------------------------------

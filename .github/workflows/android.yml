@@ -34,9 +34,9 @@ jobs:
           #server-id: something
           #settings-path: ${{ github.workspace }}
 
-      # [host cli action] grant permissions
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      # [host cli action] grant permissions(not required if asked for permissions beforehand)
+      # - name: Grant execute permission for gradlew
+      # run: chmod +x gradlew
 
       # [host cli action] run gradle build
       - name: Build with Gradle

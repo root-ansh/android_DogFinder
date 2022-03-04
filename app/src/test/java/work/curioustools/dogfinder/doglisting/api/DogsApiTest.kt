@@ -36,7 +36,7 @@ class DogsApiTest : BaseTest() {
         val resp = request.execute()
 
         Assert.assertTrue(resp.body()!=null)
-        Assert.assertEquals(resp.body()?.status,"fail")//fakeResp.status+"/")
+        Assert.assertEquals(resp.body()?.status,fakeResp.status)//+"/")
 
     }
 

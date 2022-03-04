@@ -46,16 +46,19 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/index.html
 
       - name: Build code ( marketplace gradle action similar to gradle command `./gradlew build`)
+        if: always()
         uses: gradle/gradle-build-action@v2.1.3
         with:
           arguments: build
 
       - name: Generate apk ( marketplace gradle action similar to gradle command `./gradlew assembleDebug`)
+        if: always()
         uses: gradle/gradle-build-action@v2.1.3
         with:
           arguments: assembleDebug
 
       - name: Upload APK via marketplace  action
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: app.apk

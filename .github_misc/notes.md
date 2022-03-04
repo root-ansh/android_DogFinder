@@ -27,9 +27,80 @@ another way to define branches:
 
 ```
 
-sequential tasks :  lint>get lint results > test > get test results > build > generate apk > upload generated apk 
+sequential tasks :  lint>get lint results > test > get test results > build > generate apk > upload generated apk.
+will always run every task even if previous task fails
 ```yaml
+jobs:
   lint_test_build_assemble:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Check lint via marketplace gradle action (similar to gradle command `./gradlew lint`)
+        uses: gradle/gradle-build-action@v2.1.3
+        with:
+          arguments: lint
+
+      - name: Upload Lint results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint_results.zip
+          path: app/build/reports/lint-results-debug.html
+
+      - name: Run Tests ( marketplace gradle action similar to gradle command `./gradlew test`)
+        if: always()
+        uses: gradle/gradle-build-action@v2.1.3
+        with:
+          arguments: test
+
+      - name: Upload Unit tests
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit-tests-results.zip
+          path: app/build/reports/tests/testDebugUnitTest/index.html
+
+      - name: Build code ( marketplace gradle action similar to gradle command `./gradlew build`)
+        if: always()
+        uses: gradle/gradle-build-action@v2.1.3
+        with:
+          arguments: build
+
+      - name: Generate apk ( marketplace gradle action similar to gradle command `./gradlew assembleDebug`)
+        if: always()
+        uses: gradle/gradle-build-action@v2.1.3
+        with:
+          arguments: assembleDebug
+
+      - name: Upload APK via marketplace  action
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: app.zip
+          path: app/build/outputs/apk/debug/app-debug.apk
+```
+
+
+
+parallel task : same as above, but all 4 are divided into 4 parallel tasks:
+lint and upload results || test and upload tests || apk and upload apk || build
+
+```yaml
+jobs:
+  lint:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -51,29 +122,81 @@ sequential tasks :  lint>get lint results > test > get test results > build > ge
           arguments: lint
 
       - name: Upload Lint results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: lint_results
+          name: lint_results.zip
           path: app/build/reports/lint-results-debug.html
 
+
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
       - name: Run Tests ( marketplace gradle action similar to gradle command `./gradlew test`)
+        if: always()
         uses: gradle/gradle-build-action@v2.1.3
         with:
           arguments: test
 
       - name: Upload Unit tests
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: unit-tests-results
+          name: unit-tests-results.zip
           path: app/build/reports/tests/testDebugUnitTest/index.html
 
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
 
       - name: Build code ( marketplace gradle action similar to gradle command `./gradlew build`)
         uses: gradle/gradle-build-action@v2.1.3
         with:
           arguments: build
 
+  generate_apk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
       - name: Generate apk ( marketplace gradle action similar to gradle command `./gradlew assembleDebug`)
+        if: always()
         uses: gradle/gradle-build-action@v2.1.3
         with:
           arguments: assembleDebug
@@ -81,9 +204,13 @@ sequential tasks :  lint>get lint results > test > get test results > build > ge
       - name: Upload APK via marketplace  action
         uses: actions/upload-artifact@v2
         with:
-          name: app
+          name: app.zip
           path: app/build/outputs/apk/debug/app-debug.apk
+
+
+
 ```
+
 
 # deleting workflows
 - simply remove from `.github/workflows` folder and they will not run. however the actions page 

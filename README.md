@@ -1,3 +1,4 @@
+[![task - validate commit on master](https://github.com/root-ansh/DogFinder/actions/workflows/on_push_to_master.yaml/badge.svg)](https://github.com/root-ansh/DogFinder/actions/workflows/on_push_to_master.yaml)
 # DogFinder
 A simple mvvm-clean example app for showing various dog images 
 

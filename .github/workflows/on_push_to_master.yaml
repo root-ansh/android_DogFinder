@@ -1,7 +1,7 @@
 name: task - validate commit on master
 on:
   push:
-    branches: [ master ]
+    branches: [ master, master_java ]
 
 jobs:
   lint:

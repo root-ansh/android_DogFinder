@@ -35,7 +35,7 @@ class GetRandomDogUseCaseTest:BaseTest(){
         assert(liveDataValue == baseResponse)
         Assert.assertTrue(liveDataValue is BaseResponse.Success)
         liveDataValue as BaseResponse.Success
-        Assert.assertEquals(liveDataValue.body.status , baseResponse.body.status+"/")
+        Assert.assertEquals(liveDataValue.body.status , baseResponse.body.status)
     }
 
 }

@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: checkstyle_results
-          path: app/build/reports/checkstyle.html
+          path: app/build/reports/checkstyle/checkstyle.html
 
 
   test:

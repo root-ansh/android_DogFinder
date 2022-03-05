@@ -1,7 +1,8 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1")
+    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1") // detekt STEP1 applying plugin (detekt = kotlin code's static analyser)
+    id("checkstyle") // checkstyle STEP1 applying plugin (checkstyle = java code's static analyser)
 
 }
 
@@ -36,7 +37,13 @@ android {
         viewBinding true
     }
 }
+// detekt STEP2 plugin configuration
 detekt {
+    parallel = true                                                                    // Builds the AST in parallel. Rules are always executed in parallel.Can lead to speedups in larger projects. `false` by default.
+    allRules = true                                                                    // Turns on all the rules. `false` by default.
+    ignoreFailures = true                                                              // If set to `true` the build does not fail when the maxIssues count was reached. Defaults to `false`.
+    debug = true                                                                       // Adds debug output during task execution. `false` by default.
+
     //toolVersion = "1.20.0-RC1"                                                      // Version of Detekt that will be used. When unspecified the latest detekt version found will be used. Override to stay on the same version.
     //source = files("src/main/kotlin", "gensrc/main/kotlin")                         // The directories where detekt looks for source files.Defaults to `files("src/main/java", "src/test/java", "src/main/kotlin", "src/test/kotlin")`.
     //config = files("path/to/config.yml")                                            // Define the detekt configuration(s) you want to use. Defaults to the default detekt configuration.
@@ -48,30 +55,22 @@ detekt {
     //ignoredVariants = ["productionRelease"]                                         // Android: Don't create tasks for the specified build variants (e.g. "productionRelease")
     //basePath = projectDir                                                           // Specify the base path for file paths in the formatted reports.If not set, all file paths reported will be absolute file path.
 
-    parallel = true                                                                    // Builds the AST in parallel. Rules are always executed in parallel.Can lead to speedups in larger projects. `false` by default.
-    allRules = true                                                                    // Turns on all the rules. `false` by default.
-    ignoreFailures = true                                                              // If set to `true` the build does not fail when the maxIssues count was reached. Defaults to `false`.
-    debug = true                                                                       // Adds debug output during task execution. `false` by default.
 
 }
+
+// detekt STEP3  gradle task configuration
 tasks.named("detekt").configure {
     reports {
-        // Enable/Disable XML report (default: true)
-        xml.required.set(false)
-        //xml.outputLocation.set(file("build/reports/detekt.xml"))
 
-        // Enable/Disable HTML report (default: true)
-        html.required.set(true)
-        html.outputLocation.set(file(rootProject.buildDir.toString()+"/reports/detekt-app.html"))
+        html.required.set(true)// Enable/Disable HTML report (default: true)
+        html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))//file(rootProject.buildDir.toString() + "/reports/detekt-app.html")) //f
 
-        // Enable/Disable TXT report (default: true)
-        txt.required.set(true)
-        txt.outputLocation.set(file(rootProject.buildDir.toString()+"/reports/detekt-app.txt"))
-
-        // Enable/Disable SARIF report (default: false)
         sarif.required.set(false)
+        xml.required.set(false)
+        txt.required.set(false)
+        //xml.outputLocation.set(file("build/reports/detekt.xml"))
+        //txt.outputLocation.set(file(rootProject.buildDir.toString()+"/reports/detekt-app.txt"))
         //sarif.outputLocation.set(file("build/reports/detekt.sarif"))
-
         //custom {// The simple class name of your custom report.
         //    reportId = "CustomJsonReport"
         //    outputLocation.set(file("build/reports/detekt.json"))
@@ -80,16 +79,17 @@ tasks.named("detekt").configure {
 }
 
 
-apply plugin: 'checkstyle'
+// checkstyle STEP2 plugin configuration
 checkstyle {
-    //configFile rootProject.file('checkstyle.xml')
+    //configFile rootProject.file('checkstyle.xml') // will automatically take from /config/checkstyle/checkstyle.xml
     ignoreFailures false
     showViolations true
     toolVersion = "7.8.1"
 }
 
+// checkstyle STEP3 gradle task configuration
 task Checkstyle(type: Checkstyle) {
-    //configFile rootProject.file('checkstyle.xml')
+    //configFile rootProject.file('checkstyle.xml') // will automatically take from /config/checkstyle/checkstyle.xml
     source 'src/main/java'
     ignoreFailures true
     showViolations true
@@ -98,12 +98,12 @@ task Checkstyle(type: Checkstyle) {
 }
 
 // adds checkstyle task to existing check task
-afterEvaluate {
-    //todo add in check
-//    if (project.tasks.getByName("check")) {
-//        check.dependsOn('checkstyle')
-//    }
-}
+//afterEvaluate {
+//    //todo add in check
+////    if (project.tasks.getByName("check")) {
+////        check.dependsOn('checkstyle')
+////    }
+//}
 
 dependencies {
     implementation("androidx.core:core-ktx:1.6.0")

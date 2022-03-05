@@ -3,6 +3,7 @@ plugins {
     id "kotlin-android"
     id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1") // detekt STEP1 applying plugin (detekt = kotlin code's static analyser)
     id("checkstyle") // checkstyle STEP1 applying plugin (checkstyle = java code's static analyser)
+    id("com.dorongold.task-tree").version( "2.1.0")
 
 }
 
@@ -103,6 +104,10 @@ task Checkstyle(type: Checkstyle) {
 ////    if (project.tasks.getByName("check")) {
 ////        check.dependsOn('checkstyle')
 ////    }
+//}
+//
+//check.configure {
+//    dependsOn = dependsOn.findAll { it.name == 'checkstyle' }
 //}
 
 dependencies {

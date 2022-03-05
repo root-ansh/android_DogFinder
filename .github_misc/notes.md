@@ -248,3 +248,6 @@ Execution failed for task ':app:spotbugsDebug'.
    > Verification failed: SpotBugs ended with exit code 3
 
 ```
+
+# checkstyle
+checkstyle is awesome for java SCA but has a limitation that it does not get automatically registered with `gradle check`  task. so instead of running `gradle check` and then `gradle checkstyle`, we can run `gradle check checkstyle` to run at once . or even directly : `gradle lint test detekt checkstyle ` since check = lint+test+additional installed SCAs

@@ -79,6 +79,32 @@ tasks.named("detekt").configure {
     }
 }
 
+
+apply plugin: 'checkstyle'
+checkstyle {
+    //configFile rootProject.file('checkstyle.xml')
+    ignoreFailures false
+    showViolations true
+    toolVersion = "7.8.1"
+}
+
+task Checkstyle(type: Checkstyle) {
+    //configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures true
+    showViolations true
+    include '**/*.java'
+    classpath = files()
+}
+
+// adds checkstyle task to existing check task
+afterEvaluate {
+    //todo add in check
+//    if (project.tasks.getByName("check")) {
+//        check.dependsOn('checkstyle')
+//    }
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.1")

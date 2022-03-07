@@ -98,17 +98,10 @@ task Checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-// adds checkstyle task to existing check task
-//afterEvaluate {
-//    //todo add in check
-////    if (project.tasks.getByName("check")) {
-////        check.dependsOn('checkstyle')
-////    }
-//}
-//
-//check.configure {
-//    dependsOn = dependsOn.findAll { it.name == 'checkstyle' }
-//}
+// checkstyle STEP4 (optional) add the checkstyle task manually to  `gradle check` command. for detekt, it automatically adds itself
+tasks.named("check").configure {
+    dependsOn "Checkstyle"
+}
 
 dependencies {
     implementation("androidx.core:core-ktx:1.6.0")

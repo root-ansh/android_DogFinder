@@ -253,3 +253,10 @@ Execution failed for task ':app:spotbugsDebug'.
 checkstyle is awesome for java SCA but has a limitation that it does not get automatically registered with `gradle check`  task. so instead of running `gradle check` and then `gradle checkstyle`, we can run `gradle check checkstyle` to run at once . or even directly : `gradle lint test detekt checkstyle ` since check = lint+test+additional installed SCAs
 
 infact gradle build = gradle check + assembleDebugApk
+
+update: checkstyle worked with  gradle check when we add this block : 
+```
+tasks.named("check").configure {
+    dependsOn "Checkstyle"
+}
+```

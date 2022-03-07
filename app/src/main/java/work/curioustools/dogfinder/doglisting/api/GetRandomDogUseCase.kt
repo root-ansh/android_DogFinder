@@ -1,7 +1,6 @@
 package work.curioustools.dogfinder.doglisting.api
 
-import work.curioustools.dogfinder.base.BaseConcurrencyUseCase
-import work.curioustools.dogfinder.base.BaseResponse
+import work.curioustools.dog_network.*
 
 // a usecase class which mainly provides the support of concurrent requests. viewmodel makes an api call
 // through this in main thread, but the data is receieved in a parallel thread and transmitted

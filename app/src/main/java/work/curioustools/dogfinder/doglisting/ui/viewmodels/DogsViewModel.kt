@@ -1,7 +1,7 @@
 package work.curioustools.dogfinder.doglisting.ui.viewmodels
 
 import androidx.lifecycle.*
-import work.curioustools.dogfinder.base.BaseResponse
+import work.curioustools.dog_network.*
 import work.curioustools.dogfinder.doglisting.api.GetRandomDogUseCase
 import work.curioustools.dogfinder.doglisting.ui.models.DogImage
 

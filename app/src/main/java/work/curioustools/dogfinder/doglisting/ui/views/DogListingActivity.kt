@@ -10,6 +10,7 @@ import work.curioustools.dogfinder.databinding.ActivityDogListingBinding
 import work.curioustools.dogfinder.doglisting.di.DogListingDI
 import work.curioustools.dogfinder.doglisting.ui.models.DogImage
 import work.curioustools.dogfinder.doglisting.ui.viewmodels.DogsViewModel
+import work.curioustools.dog_network.*
 
 class DogListingActivity : BaseActivity(), VBHolder<ActivityDogListingBinding> by VBHolderImpl() {
 

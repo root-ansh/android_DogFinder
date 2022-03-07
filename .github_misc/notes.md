@@ -260,3 +260,6 @@ tasks.named("check").configure {
     dependsOn "Checkstyle"
 }
 ```
+
+
+cool condition :     `if: ${{ !contains(github.event.head_commit.message, 'coverage skip') }}`

@@ -102,17 +102,7 @@ fun <T> BaseResponse<T>.printBaseResponse() {
 }
 
 
-// view extension for loading image via glide
-fun AppCompatImageView.loadImageFromInternet(url: String, @DrawableRes placeholder: Int, @DrawableRes error: Int = placeholder, @DrawableRes fallback: Int = placeholder) {
-    Glide
-        .with(this.context)
-        .load(url)
-        .placeholder(placeholder)
-        .error(error)
-        .fallback(fallback)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(this)
-}
+
 
 // small extension for showing error as a toast
 fun <T> BaseResponse.Failure<T>.showAsToast(context: Context) {

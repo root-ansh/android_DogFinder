@@ -6,7 +6,7 @@ import io.mockk.impl.annotations.MockK
 import org.junit.Assert
 import org.junit.Test
 import work.curioustools.dogfinder.BaseTest
-import work.curioustools.dogfinder.base.BaseResponse
+import work.curioustools.dog_network.*
 import work.curioustools.dogfinder.getOrAwaitValue
 
 class GetRandomDogUseCaseTest:BaseTest(){

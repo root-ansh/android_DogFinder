@@ -8,8 +8,8 @@ import org.junit.Assert
 import org.junit.Test
 import work.curioustools.dogfinder.BaseTest
 import work.curioustools.dogfinder.CallFake
-import work.curioustools.dogfinder.base.BaseResponse
-import work.curioustools.dogfinder.base.BaseResponseType
+import work.curioustools.dog_network.*
+
 
 class DogsRepoTest :BaseTest(){
 

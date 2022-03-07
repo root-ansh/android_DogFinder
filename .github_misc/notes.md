@@ -225,3 +225,38 @@ jobs:
   - if any step that can fail but should not affect the later chain, then later steps should be added in sequence with
     `if: always()` condition
     
+
+# about [spotBugs](https://spotbugs.readthedocs.io/en/stable/gradle.html)
+
+I didn't bothered to add spotbugs plugin since it fails for android code with weird errors :
+```text
+M V EI: work.curioustools.dogfinder.databinding.ActivityDogListingBinding.getRoot() may expose internal representation by returning ActivityDogListingBinding.rootView  At ActivityDogListingBinding.java:[line 48]
+The following classes needed for analysis were missing:
+  android.app.Activity
+  android.view.ViewGroup
+  android.view.LayoutInflater
+  android.view.View
+  android.content.res.Resources
+
+> Task :app:spotbugsDebug FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:spotbugsDebug'.
+> A failure occurred while executing com.github.spotbugs.snom.internal.SpotBugsRunnerForHybrid$SpotBugsExecutor
+   > Verification failed: SpotBugs ended with exit code 3
+
+```
+
+# checkstyle
+checkstyle is awesome for java SCA but has a limitation that it does not get automatically registered with `gradle check`  task. so instead of running `gradle check` and then `gradle checkstyle`, we can run `gradle check checkstyle` to run at once . or even directly : `gradle lint test detekt checkstyle ` since check = lint+test+additional installed SCAs
+
+infact gradle build = gradle check + assembleDebugApk
+
+update: checkstyle worked with  gradle check when we add this block : 
+```
+tasks.named("check").configure {
+    dependsOn "Checkstyle"
+}
+```

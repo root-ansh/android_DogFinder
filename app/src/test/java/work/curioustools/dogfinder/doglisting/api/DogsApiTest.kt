@@ -4,10 +4,9 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import org.junit.Assert
 import org.junit.Test
+import work.curioustools.dog_network.*
 import work.curioustools.dogfinder.BaseTest
 import work.curioustools.dogfinder.CallFake
-import work.curioustools.dogfinder.base.executeAndUnify
-import work.curioustools.dogfinder.base.printBaseResponse
 import work.curioustools.dogfinder.doglisting.di.DogListingDI
 
 class DogsApiTest : BaseTest() {

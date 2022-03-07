@@ -3,8 +3,7 @@ import android.content.Context
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import retrofit2.Converter
-import work.curioustools.dogfinder.base.InternetCheckInterceptor
-import work.curioustools.dogfinder.base.NetworkDI
+import work.curioustools.dog_network.*
 import work.curioustools.dogfinder.doglisting.api.DogsApi
 import work.curioustools.dogfinder.doglisting.api.DogsRepo
 import work.curioustools.dogfinder.doglisting.api.GetRandomDogUseCase

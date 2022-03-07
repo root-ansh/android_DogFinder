@@ -10,6 +10,7 @@ import work.curioustools.dogfinder.databinding.ActivityDogListingBinding
 import work.curioustools.dogfinder.doglisting.di.DogListingDI
 import work.curioustools.dogfinder.doglisting.ui.models.DogImage
 import work.curioustools.dogfinder.doglisting.ui.viewmodels.DogsViewModel
+import work.curioustools.dog_network.*
 
 class DogListingActivity : BaseActivity(), VBHolder<ActivityDogListingBinding> by VBHolderImpl() {
 
@@ -75,12 +76,13 @@ class DogListingActivity : BaseActivity(), VBHolder<ActivityDogListingBinding> b
                     val bgTint = if (data.requestCount > 1) R.color.blue_1a237e else R.color.grey_8f8f8f
                     backgroundTintList = ContextCompat.getColorStateList(ctx, bgTint)
                 }
-                ivDog.loadImageFromInternet(
-                    url = data.image,
-                    placeholder = R.drawable.bg_image_placeholder,
-                    error = R.drawable.bg_image_error,
-                    fallback = R.drawable.bg_image_fallback,
-                )
+                GlideUtil.loadImageFromInternet(data.image,ivDog)
+//                ivDog.loadImageFromInternet(
+//                    url = data.image,
+//                    placeholder = R.drawable.bg_image_placeholder,
+//                    error = R.drawable.bg_image_error,
+//                    fallback = R.drawable.bg_image_fallback,
+//                )
             }
         }
     }

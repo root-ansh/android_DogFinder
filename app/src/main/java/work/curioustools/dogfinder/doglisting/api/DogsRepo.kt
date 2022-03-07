@@ -1,7 +1,6 @@
 package work.curioustools.dogfinder.doglisting.api
 
-import work.curioustools.dogfinder.base.BaseResponse
-import work.curioustools.dogfinder.base.executeAndUnify
+import work.curioustools.dog_network.*
 
 // a repo class that has the task of making request
 class DogsRepo(private val api: DogsApi) {

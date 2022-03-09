@@ -23,5 +23,4 @@ plugins{
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-apply plugin: 'io.github.gradle-nexus.publish-plugin'
 apply from: "${project.rootDir}/gradle_scripts/publish_root.gradle"

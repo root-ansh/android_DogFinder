@@ -37,7 +37,8 @@ tasks.named("detekt").configure {
     reports {
 
         html.required.set(true)// Enable/Disable HTML report (default: true)
-        html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))//file(rootProject.buildDir.toString() + "/reports/detekt-app.html")) //f
+        //html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))
+        html.outputLocation.set(file("${rootProject.buildDir.toString()}/reports/detekt/detekt-${project.name}.html"))
 
         sarif.required.set(false)
         xml.required.set(false)
@@ -69,6 +70,11 @@ task Checkstyle(type: Checkstyle) {
     showViolations true
     include '**/*.java'
     classpath = files()
+    reports{
+        html.enabled(true)
+        html.destination = file("${rootProject.buildDir.toString()}/reports/checkstyle/checkstyle-${project.name}.html")
+        xml.enabled(false)
+    }
 }
 
 // checkstyle STEP4 (optional) add the checkstyle task manually to  `gradle check` command. for detekt, it automatically adds itself

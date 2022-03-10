@@ -60,9 +60,9 @@ jobs:
             app/build/reports/checkstyle
             dog_network/build/reports/checkstyle
 
-      - name: Run Unit Tests
+      - name: Run Unit Tests And Code Coverage
         if: always()
-        run: ./gradlew test
+        run: ./gradlew jacocoTestReportDebug
 
       - name: Upload Unit tests
         if: always()
@@ -71,7 +71,10 @@ jobs:
           name: unit-tests-results.zip
           path: |
             app/build/reports/tests
+            app/build/reports/jacoco
+
             dog_network/build/reports/tests
+            dog_network/build/reports/jacoco
 
       - name: Generate AAR and APK files
         if: always()

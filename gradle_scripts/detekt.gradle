@@ -30,7 +30,7 @@ tasks.named("detekt").configure {
 
         html.required.set(true)// Enable/Disable HTML report (default: true)
         //html.outputLocation.set(file("$buildDir/reports/detekt/detekt.html"))
-        html.outputLocation.set(file("${rootProject.buildDir.toString()}/reports/detekt/detekt-${project.name}.html"))
+        html.outputLocation.set(file("${buildDir}/reports/detekt/detekt-${project.name}.html"))
 
         sarif.required.set(false)
         xml.required.set(false)

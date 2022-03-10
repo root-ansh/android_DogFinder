@@ -19,7 +19,7 @@ task Checkstyle(type: Checkstyle) {
     classpath = files()
     reports{
         html.enabled(true)
-        html.destination = file("${rootProject.buildDir.toString()}/reports/checkstyle/checkstyle-${project.name}.html")
+        html.destination = file("${buildDir}/reports/checkstyle/checkstyle-${project.name}.html")
         xml.enabled(false)
     }
 }

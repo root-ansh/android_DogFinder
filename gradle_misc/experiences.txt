@@ -1,0 +1,20 @@
+what is a single output location and why we need it?
+- output location: a folder where the results of various tasks like lint, detekt, checkstyle, tests,
+  etc are generated
+- currently its in build directory of all modules
+- it needs to be in single location otherwise our ci cd pipeline will be too long and
+  too difficult to maintain. when new modules are added
+
+how to achieve it?
+- lint: supports custom output dir
+- detekt : supports custom output dir
+- checkstyle : supports custom output dir
+- test: does not support by default, but can be configured using hacks
+- aar/apk : need to research
+- publish : not applicable
+
+Why we are moving back to  multiple output dir?
+- the hacks for lint and test makes it flaky . 1 in 5 times does not show in output directory
+  correctly but rather in the original module's build dir
+- when test fails, it always shows up in its original directory
+- gradle lint sometimes don't work when output dir is provided

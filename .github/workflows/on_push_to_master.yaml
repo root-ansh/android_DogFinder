@@ -1,29 +1,29 @@
 name: task - validate commit on master
 on:
   push:
-    branches: [ master, master_java ]
+    branches: [ master ]
 
 jobs:
-  lint:
+  lint-staticChecks-test-build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
+      - name: Setup actions.
       - uses: actions/checkout@v2
 
-      - name: set up JDK 11.
+      - name: set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
 
-      - name: Check lint via marketplace gradle action (similar to gradle command `./gradlew lint`)
-        uses: gradle/gradle-build-action@v2.1.3
-        with:
-          arguments: lint
+      - name: Check lint
+        if: always()
+        run: ./gradlew lint
 
       - name: Upload Lint results
         if: always()
@@ -34,27 +34,9 @@ jobs:
             app/build/reports/lint-results-debug.html
             dog_network/build/reports/lint-results-debug.html
 
-
-  code_analysis:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-
       - name: CodeAnalysis via  detekt
-        uses: gradle/gradle-build-action@v2.1.3
-        with:
-          arguments: detekt
+        if: always()
+        run: ./gradlew detekt
 
       - name: Upload detekt results
         if: always()
@@ -62,15 +44,12 @@ jobs:
         with:
           name: detekt_results
           path:  |
-           app/build/reports/detekt
-           dog_network/build/reports/detekt
-
+            app/build/reports/detekt
+            dog_network/build/reports/detekt
 
       - name: CodeAnalysis via  checkstyle
         if: always()
-        uses: gradle/gradle-build-action@v2.1.3
-        with:
-          arguments: checkstyle
+        run: ./gradlew checkstyle
 
       - name: Upload checkstyle results
         if: always()
@@ -81,28 +60,9 @@ jobs:
             app/build/reports/checkstyle
             dog_network/build/reports/checkstyle
 
-
-  test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Run Tests ( marketplace gradle action similar to gradle command `./gradlew test`)
+      - name: Run Unit Tests
         if: always()
-        uses: gradle/gradle-build-action@v2.1.3
-        with:
-          arguments: test
+        run: ./gradlew test
 
       - name: Upload Unit tests
         if: always()
@@ -113,84 +73,15 @@ jobs:
             app/build/reports/tests
             dog_network/build/reports/tests
 
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Publish to MavenCentral
-        if: ${{ contains(github.event.head_commit.message, '[UPLOAD]') }}
-        run: ./gradlew publishToSonatype --max-workers 1 closeAndReleaseSonatypeStagingRepository
-        env:
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
-
-  generate_apk:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Generate debug apk and library aars
+      - name: Generate AAR and APK files
         if: always()
-        uses: gradle/gradle-build-action@v2.1.3
-        with:
-          arguments: assembleDebug
+        run: ./gradlew assembleDebug
 
-      - name: Upload APK via marketplace  action
+      - name: Upload AAR files
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: aars_and_apk.zip
+          name: unit-tests-results.zip
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             dog_network/build/outputs/aar
-
-
-
-# build is unnecessary step here since it covers all of these steps + many additional steps
-
-#  build:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: set up JDK 11
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '11'
-#          distribution: 'temurin'
-#          cache: gradle
-#
-#      - name: Build code ( marketplace gradle action similar to gradle command `./gradlew build`)
-#        uses: gradle/gradle-build-action@v2.1.3
-#        with:
-#          arguments: build

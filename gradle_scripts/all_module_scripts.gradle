@@ -1,0 +1,27 @@
+
+plugins.withId('com.android.application') {
+    println("==> module application")
+
+    apply from: "${project.rootDir}/gradle_scripts/lint.gradle"
+    apply from: "${project.rootDir}/gradle_scripts/checkstyle.gradle"
+    apply from: "${project.rootDir}/gradle_scripts/detekt.gradle"
+}
+
+
+plugins.withId('com.android.library') {
+    println("==> module library")
+
+    apply from: "${project.rootDir}/gradle_scripts/lint.gradle"
+    apply from: "${project.rootDir}/gradle_scripts/checkstyle.gradle"
+    apply from: "${project.rootDir}/gradle_scripts/detekt.gradle"
+
+    apply from: "${project.rootDir}/gradle_scripts/publish_module.gradle"
+
+}
+
+
+plugins.withId('java') {
+    println("==> module pure java")
+}
+
+

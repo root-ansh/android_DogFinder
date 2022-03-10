@@ -1,7 +1,7 @@
 buildscript {
     project.ext {
         PUBLISH_GROUP_ID = 'work.curioustools'
-        PUBLISH_VERSION = '1.0.6'
+        PUBLISH_VERSION = '1.0.7'
     }
     repositories {
         google()
@@ -17,10 +17,12 @@ buildscript {
     }
 }
 plugins{
-    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1").apply(false)// detekt STEP0 applying plugin (detekt = kotlin code's static analyser)
+    // detekt STEP1 applying plugin without enabling(detekt = kotlin code's static analyser)
+    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1").apply(false)
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 apply from: "${project.rootDir}/gradle_scripts/publish_root.gradle"
+apply from: "${project.rootDir}/gradle_scripts/test_root.gradle"

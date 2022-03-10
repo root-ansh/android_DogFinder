@@ -1,0 +1,19 @@
+// there is no suitable way to run unit tests and get their results in same directory
+// ( because test is not a single static taks),
+// so we  create a new task  named rootTestReport and run that
+
+subprojects {
+    // Add custom tasks as part of report when it ready
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.hasTask(testDebugUnitTest)) {
+            rootTestReport.reportOn(testDebugUnitTest)
+        }
+        // and so on
+    }
+}
+
+// Combine all 'test' task results into a single HTML report
+tasks.register('rootTestReport', TestReport) {
+    subprojects.each { dependsOn("${it.name}:testDebugUnitTest") } // todo: to be improved
+    destinationDir = file("$buildDir/reports/allTests")
+}

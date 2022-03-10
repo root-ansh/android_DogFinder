@@ -50,4 +50,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
-apply from: "${project.rootDir}/gradle_scripts/each_module_script.gradle"
+apply from: "${project.rootDir}/gradle_scripts/all_module_scripts.gradle"

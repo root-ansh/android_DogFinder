@@ -1,0 +1,50 @@
+
+android{
+    lintOptions {
+        htmlReport true
+        htmlOutput file("${rootProject.buildDir.toString()}/reports/lint/lint-${project.name}.html")
+    }
+}
+//    android{
+//        lintOptions {
+//            htmlReport true
+//            htmlOutput file("${rootProject.buildDir.toString()}/reports/lint/lint-${project.name}.html")
+//            //quiet true  // set to true to turn off analysis progress reporting by lint
+//            //abortOnError false  // if true, stop the gradle build if errors are found
+//            //checkReleaseBuilds true         // set to true to have all release builds run lint on issues with severity=fatal and abort the build (controlled by abortOnError above) if fatal issues are found
+//            //ignoreWarnings true  // if true, only report errors
+//            //checkAllWarnings true         // if true, emit full/absolute paths to files with errors (true by default) absolutePaths true if true, check all issues, including those that are off by default
+//            //warningsAsErrors true         // if true, treat all warnings as errors
+//            //disable 'TypographyFractions','TypographyQuotes'         // turn off checking the given issue id's
+//            //enable 'RtlHardcoded','RtlCompat', 'RtlEnabled'         // turn on the given issue id's
+//            //check 'NewApi', 'InlinedApi'         // check *only* the given issue id's
+//            //noLines true         // if true, don't include source code lines in the error output
+//            //showAll true         // if true, show all locations for an error, do not truncate lists, etc.
+//            //explainIssues false         // whether lint should include full issue explanations in the text error output
+//            //lintConfig file("default-lint.xml")         // Fallback lint configuration (default severities, etc.)
+//            //textReport true         // if true, generate a text report of issues (false by default)
+//            //textOutput file("lint-results.txt")         // location to write the output; can be a file or 'stdout' or 'stderr' textOutput 'stdout'
+//            //xmlReport true         // if true, generate an XML report for use by for example Jenkins
+//            //xmlOutput file("lint-report.xml")         // file to write report to (if not specified, defaults to lint-results.xml)
+//            //fatal 'NewApi', 'InlineApi'         // Set the severity of the given issues to fatal (which means they will bechecked during release builds (even if the lint target is not included)
+//            //error 'Wakelock', 'TextViewEdits'         // Set the severity of the given issues to error
+//            //warning 'ResourceAsColor'         // Set the severity of the given issues to warning
+//            //ignore 'TypographyQuotes'         // Set the severity of the given issues to ignore (same as disabling the check)
+//            //informational 'StopShip'         // Set the severity of the given issues to informational
+//            //baseline file("lint-baseline.xml")         // Use (or create) a baseline file for issues that should not be reported
+//            //checkTestSources true         // Normally most lint checks are not run on test sources (except the checks// dedicated to looking for mistakes in unit or instrumentation tests, unless// ignoreTestSources is true). You can turn on normal lint checking in all// sources with the following flag, false by default:
+//            //ignoreTestSources true         // Like checkTestSources, but always skips analyzing tests -- meaning that it// also ignores checks that have explicitly asked to look at test sources, such// as the unused resource check.
+//            //checkGeneratedSources true         // Normally lint will skip generated sources, but you can turn it on with this flag
+//            //checkDependencies false        // Normally lint will analyze all dependencies along with each module; this ensures// that lint can correctly (for example) determine if a resource declared in a library// is unused; checking only the library in isolation would not be able to identify this// problem. However, this leads to quite a bit of extra computation; a library is// analyzed repeatedly, for each module that it is used in.
+//
+//        }
+//    }
+//subprojects {
+//    tasks.whenTaskAdded { task ->
+//        if (task.name.startsWith("lint")) {
+//            task.doFirst {
+//                android.lint.htmlOutput = file("${rootProject.buildDir.toString()}/reports/lint/lint-${project.name}.html")
+//            }
+//        }
+//    }
+//}

@@ -65,5 +65,4 @@ dependencies {
 ext {
     PUBLISH_ARTIFACT_ID = 'dog_network'
 }
-apply from: "${project.rootDir}/gradle_scripts/each_module_script.gradle"
-apply from: "${project.rootDir}/gradle_scripts/publish_module.gradle"
+apply from: "${project.rootDir}/gradle_scripts/all_module_scripts.gradle"

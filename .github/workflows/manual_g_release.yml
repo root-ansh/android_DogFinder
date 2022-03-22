@@ -41,7 +41,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           draft: false
-          prerelease: true
+          prerelease: false
           automatic_release_tag: ${{ github.event.inputs.tag_name }}
           title: ${{ github.event.inputs.title }}
 

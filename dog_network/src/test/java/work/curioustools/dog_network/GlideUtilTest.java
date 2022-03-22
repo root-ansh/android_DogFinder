@@ -7,6 +7,6 @@ public class GlideUtilTest {
 
     @Test
     public void loadImageFromInternet() {
-        Assert.assertArrayEquals(new Integer[]{12,3},new Integer[]{12,3});
+        Assert.assertArrayEquals(new Integer[]{11,3},new Integer[]{12,3});
     }
 }

@@ -101,13 +101,13 @@ jobs:
 
       - name: Send custom JSON data to Slack workflow
         id: slack
+        if: always()
         uses: slackapi/slack-github-action@v1.18.0
         with:
           payload: |
             {
               "attachments": [
                 {
-                  "color": "#4ddbff",
                   "blocks": [
                     {
                       "type": "header",
@@ -136,39 +136,39 @@ jobs:
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Run id:* \n ${{github.run_id }} "
+                          "text": "- *Run id:* ${{github.run_id }} "
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Server URL:* \n ${{ github.server_url }}"
+                          "text": "- *Server URL:*  ${{ github.server_url }}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Repository:* \n ${{ github.repository }}"
+                          "text": "- *Repository:*  ${{ github.repository }}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Full URL: *\n ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                          "text": "- *Full URL: * ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Head Ref:* \n ${{ github.head_ref}}"
+                          "text": "- *Head Ref:*  ${{ github.head_ref}}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Base Ref:* \n ${{ github.base_ref}}"
+                          "text": "- *Base Ref:*  ${{ github.base_ref}}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*Pull Request Number:* \n ${{ github.event.pull_request.number }}"
+                          "text": "- *Pull Request Number:*  ${{ github.event.pull_request.number }}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*PR URL:* \n ${{ github.event.pull_request.html_url }}"
+                          "text": "- *PR URL:*  ${{ github.event.pull_request.html_url }}"
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "*HEAD Commit URL:* \n ${{ github.event.head_commit.url }}"
+                          "text": "- *HEAD Commit URL:*  ${{ github.event.head_commit.url }}"
                         }
                       ]
                     }
@@ -177,34 +177,6 @@ jobs:
               ]
             }
 
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-      - name: Send success message to Slack
-        if: ${{ inputs.deploy-job-status == 'success' }}
-        id: slack-success
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"Se realizó el despliegue del front-end en el ambiente de *${{ inputs.env-name }}*"}},{"type":"section","text":{"type":"mrkdwn","text":"${{ inputs.url }}"}}]}'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-      - name: Send failure message to Slack
-        if: ${{ inputs.deploy-job-status == 'failure' }}
-        id: slack-failure
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"El despliegue del front-end en el ambiente de *${{ inputs.env-name }}* tuvo errores"}}]}'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-      - name: Send cancelled message to Slack
-        if: ${{ inputs.deploy-job-status == 'cancelled' }}
-        id: slack-cancelled
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"El despliegue del front-end en el ambiente de *${{ inputs.env-name }}* fue cancelado"}}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

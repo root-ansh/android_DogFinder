@@ -28,6 +28,12 @@
               "type": "mrkdwn",
               "text": "*Job Status:*  *${{ job.status }}*"
             },
+
+            {
+              "type": "mrkdwn",
+              "text": "*JOB STATUS:* \n ${{ inputs.deploy-job-status  }}"
+            },
+
             {
               "type": "mrkdwn",
               "text": "*Run id:* \n ${{github.run_id }} "

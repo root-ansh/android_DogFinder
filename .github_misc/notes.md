@@ -265,3 +265,4 @@ tasks.named("check").configure {
 cool condition :     `if: ${{ !contains(github.event.head_commit.message, 'coverage skip') }}`
 published results : https://repo1.maven.org/maven2/work/curioustools/dog_network/
 
+cool yaml : https://github.com/mttschltz/life/blob/cb440e29d4030ad19a345be486892a536935194d/.github/workflows/matt-fyi-cd.yml

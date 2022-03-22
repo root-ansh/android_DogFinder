@@ -1,0 +1,29 @@
+{ "blocks": [
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": ":large_orange_circle: `base: ${{ env.GIT_BASE_BRANCH }}` <- `head: ${{ env.GIT_HEAD_BRANCH }}` is now deploying to `production`."
+    }
+  },
+  { "type": "divider" },
+  {
+    "type": "actions",
+    "elements": [
+      {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Pull Request"
+        },
+        "url": "${{ env.GIT_PR_URL }}"
+      }
+    ]
+  }
+]
+}
+
+env:
+GIT_HEAD_BRANCH: ${{ github.head_ref }}
+GIT_BASE_BRANCH: ${{ github.base_ref }}
+GIT_PR_URL: https://github.com/constROD/template-node-typescript/pull/${{ github.event.pull_request.number }}

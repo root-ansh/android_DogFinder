@@ -105,25 +105,78 @@ jobs:
         with:
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
-                }
-              ],
               "attachments": [
                 {
-                  "color": "good",
-                  "title": "title",
-                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "text": "description"
+                  "color": "#4ddbff",
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "❇️GitHub Action build results❇️",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Action ran for following    <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|PR or HEAD_COMMIT>"
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "fields": [
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Job Status:*  *${{ job.status }}*"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Run id:* \n ${{github.run_id }} "
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Server URL:* \n ${{ github.server_url }}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Repository:* \n ${{ github.repository }}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Full URL: *\n ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Head Ref:* \n ${{ github.head_ref}}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Base Ref:* \n ${{ github.base_ref}}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*Pull Request Number:* \n ${{ github.event.pull_request.number }}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*PR URL:* \n ${{ github.event.pull_request.html_url }}"
+                        },
+                        {
+                          "type": "mrkdwn",
+                          "text": "*HEAD Commit URL:* \n ${{ github.event.head_commit.url }}"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
+
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

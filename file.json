@@ -1,29 +1,72 @@
-{ "blocks": [
-  {
-    "type": "section",
-    "text": {
-      "type": "mrkdwn",
-      "text": ":large_orange_circle: `base: ${{ env.GIT_BASE_BRANCH }}` <- `head: ${{ env.GIT_HEAD_BRANCH }}` is now deploying to `production`."
-    }
-  },
-  { "type": "divider" },
-  {
-    "type": "actions",
-    "elements": [
-      {
-        "type": "button",
-        "text": {
-          "type": "plain_text",
-          "text": "Pull Request"
+{
+  "attachments": [
+    {
+      "color": "#4ddbff",
+      "blocks": [
+        {
+          "type": "header",
+          "text": {
+            "type": "plain_text",
+            "text": "❇️GitHub Action build results❇️",
+            "emoji": true
+          }
         },
-        "url": "${{ env.GIT_PR_URL }}"
-      }
-    ]
-  }
-]
+        {
+          "type": "divider"
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "Action ran for following    <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|PR or HEAD_COMMIT>"
+          }
+        },
+        {
+          "type": "section",
+          "fields": [
+            {
+              "type": "mrkdwn",
+              "text": "*Job Status:*  *${{ job.status }}*"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Run id:* \n ${{github.run_id }} "
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Server URL:* \n ${{ github.server_url }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Repository:* \n ${{ github.repository }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Full URL: *\n ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Head Ref:* \n ${{ github.head_ref}}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Base Ref:* \n ${{ github.base_ref}}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Pull Request Number:* \n ${{ github.event.pull_request.number }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*PR URL:* \n ${{ github.event.pull_request.html_url }}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*HEAD Commit URL:* \n ${{ github.event.head_commit.url }}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
-
-env:
-GIT_HEAD_BRANCH: ${{ github.head_ref }}
-GIT_BASE_BRANCH: ${{ github.base_ref }}
-GIT_PR_URL: https://github.com/constROD/template-node-typescript/pull/${{ github.event.pull_request.number }}

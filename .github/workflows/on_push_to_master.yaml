@@ -37,7 +37,6 @@ jobs:
           cache: gradle
 
       - name: Check lint
-        if: always()
         run: ./gradlew lint
 
       - name: Upload Lint results
@@ -50,7 +49,6 @@ jobs:
             dog_network/build/reports/lint-results-debug.html
 
       - name: CodeAnalysis via  detekt
-        if: always()
         run: ./gradlew detekt
 
       - name: Upload detekt results
@@ -63,7 +61,6 @@ jobs:
             dog_network/build/reports/detekt
 
       - name: CodeAnalysis via  checkstyle
-        if: always()
         run: ./gradlew checkstyle
 
       - name: Upload checkstyle results
@@ -76,7 +73,6 @@ jobs:
             dog_network/build/reports/checkstyle
 
       - name: Run Unit Tests And Code Coverage
-        if: always()
         run: ./gradlew jacocoTestReportDebug
 
       - name: Upload Unit tests
@@ -92,7 +88,6 @@ jobs:
             dog_network/build/reports/jacoco
 
       - name: Generate AAR and APK files
-        if: always()
         run: ./gradlew assembleDebug
 
       - name: Upload AAR files

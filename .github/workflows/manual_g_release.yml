@@ -12,36 +12,30 @@ on:
         required: true
         type: string
 
-
-#      environment:
-#        description: 'Environment to run tests against'
-#        type: environment
-#        required: true
-#      logLevel:
-#        description: 'Log level for workflow:'
-#        required: true
-#        default: 'warning'
-#        type: choice
-#        options:
-#          - info
-#          - warning
-#          - debug
-#        tags:
-#          description: 'Test scenario tags'
-#          required: false
-#          type: boolean
-
-
 jobs:
   log-the-inputs:
     runs-on: ubuntu-latest
     steps:
-      - name: "create release"
+      - name: Setup Actions.
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11.
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Generate AAR and APK files.
+        run: ./gradlew assembleDebug
+
+      - name: Release on Github.
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          draft: false
+          draft: true
           prerelease: false
           automatic_release_tag: ${{ github.event.inputs.tag_name }}
           title: ${{ github.event.inputs.title }}
-
+          files: |
+            dog_network/build/outputs/aar

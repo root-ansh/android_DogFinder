@@ -40,8 +40,8 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          files: *
           draft: false
           prerelease: true
           automatic_release_tag: ${{ github.event.inputs.tag_name }}
           title: ${{ github.event.inputs.title }}
+

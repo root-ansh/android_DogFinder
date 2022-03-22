@@ -17,7 +17,7 @@ on:
         type: boolean
       tag_name:
         description: 'enter a tag name'
-        required: false
+        required: true
         type: string
 
       environment:
@@ -34,7 +34,7 @@ jobs:
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
-          echo "tag: $TAG_NAME"
+          echo "tag: $tag_name | $TAG_NAME"
         env:
           LEVEL: ${{ github.event.inputs.logLevel }}
           TAGS: ${{ github.event.inputs.tags }}

@@ -34,8 +34,9 @@ jobs:
           echo "Log level: $LEVEL"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
-          echo "tag: $tag_name | $TAG_NAME"
+          echo "tag:  $TAG_NAME"
         env:
           LEVEL: ${{ github.event.inputs.logLevel }}
           TAGS: ${{ github.event.inputs.tags }}
           ENVIRONMENT: ${{ github.event.inputs.environment }}
+          TAG_NAME: ${{ github.event.inputs.tag_name }}

@@ -1,0 +1,37 @@
+apply plugin: "io.gitlab.arturbosch.detekt"               // detekt STEP1 applying plugin (detekt = kotlin code's static analyser)
+apply plugin: "checkstyle"                                // checkstyle STEP1 applying plugin (checkstyle = java code's static analyser)
+
+// detekt STEP2 plugin configuration
+detekt {
+    parallel = true
+    allRules = true
+    ignoreFailures = true
+    debug = true
+}
+
+// detekt STEP3 gradle task configuration
+tasks.named("detekt").configure {
+    reports {
+        html.required.set(true)
+        sarif.required.set(false)
+        xml.required.set(false)
+        txt.required.set(false)
+    }
+}
+
+// checkstyle STEP2 plugin configuration
+checkstyle {
+    ignoreFailures false
+    showViolations true
+    toolVersion = "7.8.1"
+}
+
+// checkstyle STEP3 gradle task configuration
+task Checkstyle(type: Checkstyle) {
+    source 'src/main/java'
+    ignoreFailures true
+    showViolations true
+    include '**/*.java'
+    classpath = files()
+}
+

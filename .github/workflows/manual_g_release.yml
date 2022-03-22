@@ -31,12 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Log level: ${{ github.event.inputs.tag_name }}"
+          echo "hello ji , tag hai ye: ${{ github.event.inputs.tag_name }}"
           echo "Tags: $TAGS"
           echo "Environment: $ENVIRONMENT"
           echo "tag:  $TAG_NAME"
-        env:
-          LEVEL: ${{ github.event.inputs.logLevel }}
-          TAGS: ${{ github.event.inputs.tags }}
-          ENVIRONMENT: ${{ github.event.inputs.environment }}
-          TAG_NAME: ${{ github.event.inputs.tag_name }}

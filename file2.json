@@ -1,0 +1,122 @@
+{
+  "attachments": [
+    {
+      "blocks": [
+        {
+          "type": "section",
+          "text": {
+            "type": "plain_text",
+            "text": "GitHub Action build results ℹ️ ️",
+            "emoji": true
+          }
+        },
+        {
+          "type": "divider"
+        },
+
+
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "github context :"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "```json ${{ toJson(github)}}```"
+          }
+        },
+        {
+          "type": "divider"
+        },
+
+
+
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "steps context :"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "```json ${{ toJson(steps)}}```"
+          }
+        },
+        {
+          "type": "divider"
+        },
+
+
+
+
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "job context :"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "```json ${{ toJson(job)}}```"
+          }
+        },
+        {
+          "type": "divider"
+        },
+
+
+
+
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "runner context :"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "```json ${{ toJson(runner)}}```"
+          }
+        },
+        {
+          "type": "divider"
+        },
+
+
+
+
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "received inputs context :"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "```json ${{ toJson(inputs)}}```"
+          }
+        },
+        {
+          "type": "divider"
+        }
+
+      ]
+    }
+  ]
+}

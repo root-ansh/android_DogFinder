@@ -17,6 +17,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
+            "text": "Following action Ran : <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|action name>",
             "text": "Action ran for following  commit :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
           }
         },
@@ -24,82 +25,97 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Job Status:*  '*${{ job.status }}*'"
+            "text": "Commit Info:"
           }
         },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "• Head Commit url: ${{github.event.head_commit.url}}"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "• Head Commit message: ${{github.event.head_commit.message}}"
+          }
+        },
+
+
+
 
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Run id:* '${{github.run_id }}'"
+            "text": "• Job Status:  '${{ job.status }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Server URL:*  '${{ github.server_url }}'"
+            "text": "• Run id: '${{github.run_id }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Repository:*  '${{ github.repository }}'"
+            "text": "• Server URL:  '${{ github.server_url }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Full Runner URL:* '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
+            "text": "• Repository:  '${{ github.repository }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Head Ref:*  '${{ github.head_ref}'"
+            "text": "• Full Runner URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Base Ref:*  '${{ github.base_ref}}'"
+            "text": "• Head Ref:  '${{ github.head_ref}}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *Pull Request Number:*  '${{ github.event.pull_request.number }}'"
+            "text": "• Base Ref:  '${{ github.base_ref}}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *PR URL:*  '${{ github.event.pull_request.html_url }}'"
+            "text": "• Pull Request Number:  '${{ github.event.pull_request.number }}'"
           }
         },
-
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• *HEAD Commit URL:*  '${{ github.event.head_commit.url }}'"
+            "text": "• PR URL:  '${{ github.event.pull_request.html_url }}'"
           }
         },
-
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "• HEAD Commit URL:  '${{ github.event.head_commit.url }}'"
+          }
+        },
         {
           "type": "section",
           "text": {
@@ -107,7 +123,6 @@
             "text": "• "
           }
         },
-
         {
           "type": "section",
           "text": {
@@ -115,7 +130,6 @@
             "text": "• "
           }
         },
-
         {
           "type": "section",
           "text": {
@@ -123,7 +137,6 @@
             "text": "• "
           }
         },
-
         {
           "type": "section",
           "text": {

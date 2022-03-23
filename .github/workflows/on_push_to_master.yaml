@@ -113,131 +113,116 @@ jobs:
                       "type": "section",
                       "text": {
                         "type": "plain_text",
-                        "text": "GitHub Action build results ℹ️ ️",
+                        "text": "GitHub Action build results 🚀🚀🚀 ️",
                         "emoji": true
                       }
                     },
                     {
                       "type": "divider"
                     },
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "Action ran for following  commit :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
-                      }
-                    },
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• *Job Status:*  '*${{ job.status }}*'"
-                      }
-                    },
+
 
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Run id:* '${{github.run_id }}'"
+                        "text": "github context :"
                       }
                     },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "```json ${{ toJson(github)}}```"
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+
+
 
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Server URL:*  '${{ github.server_url }}'"
+                        "text": "steps context :"
                       }
                     },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "```json ${{ toJson(steps)}}```"
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+
+
+
 
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Repository:*  '${{ github.repository }}'"
+                        "text": "job context :"
                       }
                     },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "```json ${{ toJson(job)}}```"
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+
+
+
 
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Full Runner URL:* '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
+                        "text": "runner context :"
                       }
                     },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "```json ${{ toJson(runner)}}```"
+                      }
+                    },
+                    {
+                      "type": "divider"
+                    },
+
+
+
 
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Head Ref:*  '${{ github.head_ref}}'"
+                        "text": "received inputs context :"
                       }
                     },
-
                     {
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "• *Base Ref:*  '${{ github.base_ref}}'"
+                        "text": "```json ${{ toJson(inputs)}}```"
                       }
                     },
-
                     {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• *Pull Request Number:*  '${{ github.event.pull_request.number }}'"
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• *PR URL:*  '${{ github.event.pull_request.html_url }}'"
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• *HEAD Commit URL:*  '${{ github.event.head_commit.url }}'"
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• "
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• "
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• "
-                      }
-                    },
-
-                    {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "• "
-                      }
+                      "type": "divider"
                     }
+
                   ]
                 }
               ]

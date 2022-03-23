@@ -110,10 +110,10 @@ jobs:
                 {
                   "blocks": [
                     {
-                      "type": "header",
+                      "type": "section",
                       "text": {
                         "type": "plain_text",
-                        "text": "❇️GitHub Action build results❇️",
+                        "text": "GitHub Action build results ℹ️ ️",
                         "emoji": true
                       }
                     },
@@ -124,59 +124,128 @@ jobs:
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": "Action ran for following    <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|PR or HEAD_COMMIT>"
+                        "text": "Action ran for following  commit :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
                       }
                     },
                     {
                       "type": "section",
-                      "fields": [
-                        {
-                          "type": "mrkdwn",
-                          "text": "*Job Status:*  *${{ job.status }}*"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Run id:* ${{github.run_id }} "
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Server URL:*  ${{ github.server_url }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Repository:*  ${{ github.repository }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Full URL: * ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Head Ref:*  ${{ github.head_ref}}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Base Ref:*  ${{ github.base_ref}}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *Pull Request Number:*  ${{ github.event.pull_request.number }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *PR URL:*  ${{ github.event.pull_request.html_url }}"
-                        },
-                        {
-                          "type": "mrkdwn",
-                          "text": "- *HEAD Commit URL:*  ${{ github.event.head_commit.url }}"
-                        }
-                      ]
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Job Status:*  '*${{ job.status }}*'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Run id:* '${{github.run_id }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Server URL:*  '${{ github.server_url }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Repository:*  '${{ github.repository }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Full Runner URL:* '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Head Ref:*  '${{ github.head_ref}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Base Ref:*  '${{ github.base_ref}}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *Pull Request Number:*  '${{ github.event.pull_request.number }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *PR URL:*  '${{ github.event.pull_request.html_url }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• *HEAD Commit URL:*  '${{ github.event.head_commit.url }}'"
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• "
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• "
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• "
+                      }
+                    },
+
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "• "
+                      }
                     }
                   ]
                 }
               ]
             }
-
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+# this type of integration is also cool : https://github.com/voxmedia/github-action-slack-notify-build
+#https://raw.githubusercontent.com/voxmedia/github-action-slack-notify-build/main/docs/updating_message.gif
+# this slack , hosted by anshsachdeva2013 : https://app.slack.com/client/T037QDTAE9M/C03825HTMJ9

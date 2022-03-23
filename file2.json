@@ -26,7 +26,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "```json ${{ toJson(github)}}```"
+            "text": "```${{toJson(github)}}```"
           }
         },
         {
@@ -46,7 +46,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "```json ${{ toJson(steps)}}```"
+            "text": "```${{toJson(steps)}}```"
           }
         },
         {
@@ -67,7 +67,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "```json ${{ toJson(job)}}```"
+            "text": "```${{toJson(job)}}```"
           }
         },
         {
@@ -88,7 +88,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "```json ${{ toJson(runner)}}```"
+            "text": "```${{ toJson(runner)}}```"
           }
         },
         {
@@ -109,7 +109,7 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "```json ${{ toJson(inputs)}}```"
+            "text": "```${{ toJson(inputs)}}```"
           }
         },
         {

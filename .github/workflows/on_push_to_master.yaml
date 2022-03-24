@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/mini_flows/checkout_code/action.yml
+      - uses: ./.github/mini_flows/checkout_code
 
 #      - name: set up JDK 11
 #        uses: actions/setup-java@v2

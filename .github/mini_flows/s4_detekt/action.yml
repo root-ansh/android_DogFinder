@@ -2,6 +2,8 @@ runs:
   using: "composite"
   steps:
     - name: CodeAnalysis via  detekt
+      if: success()
+      shell: bash
       run: ./gradlew detekt
 
     - name: Upload detekt results

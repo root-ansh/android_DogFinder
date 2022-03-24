@@ -2,6 +2,8 @@ name: task - validate commit on master
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
+
 
 jobs:
   lint-staticChecks-test-build:

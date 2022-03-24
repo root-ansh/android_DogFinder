@@ -34,7 +34,7 @@ class DogsApiTest : BaseTest() {
         val request = dogApiMock.getImage()
         val resp = request.execute()
 
-        Assert.assertTrue(resp.body()!=null)
+        Assert.assertTrue(resp.body()==null)//error
         Assert.assertEquals(resp.body()?.status,fakeResp.status)//+"/")
 
     }

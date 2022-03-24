@@ -13,3 +13,10 @@ runs:
         path: |
           app/build/outputs/apk/debug/app-debug.apk
           dog_network/build/outputs/aar
+
+    - name: Set Output
+      if: always()
+      uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
+      with:
+        script: |
+          core.setOutput('slack_msg', 'build code: 🔜');

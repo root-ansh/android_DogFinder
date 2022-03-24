@@ -23,14 +23,12 @@ jobs:
 
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
       - name: Setup JDK 11.
         uses: ./.github/mini_flows/s2_setup_jdk
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -38,7 +36,6 @@ jobs:
         uses: ./.github/mini_flows/s3_lint
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -46,7 +43,6 @@ jobs:
         uses: ./.github/mini_flows/s4_detekt
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -54,7 +50,6 @@ jobs:
         uses: ./.github/mini_flows/s5_checkstyle
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -62,7 +57,6 @@ jobs:
         uses: ./.github/mini_flows/s6_test_coverage
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -70,7 +64,6 @@ jobs:
         uses: ./.github/mini_flows/s7_build
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -78,7 +71,6 @@ jobs:
         uses: ./.github/mini_flows/s8_maven_release
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -87,193 +79,15 @@ jobs:
 
 
 #      - name: Slack Status Notification
-#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
 
 
 
-#      - name: Send custom JSON data to Slack workflow
-#        id: slack
-#
-#        uses: slackapi/slack-github-action@v1.18.0
-#        env:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-#        with:
-#          payload: |
-#            {
-#              "attachments": [
-#                {
-#                  "blocks": [
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "plain_text",
-#                        "text": "GitHub Action build results 🚀🚀🚀️ ️",
-#                        "emoji": true
-#                      }
-#                    },
-#                    {
-#                      "type": "divider"
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "Following action Ran : <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|action name>",
-#                        "text": "Action ran for following  commit :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "Commit Info:"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Head Commit url: ${{github.event.head_commit.url}}"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Head Commit message: ${{github.event.head_commit.message}}"
-#                      }
-#                    },
-#
-#
-#
-#
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Job Status:  '${{ job.status }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Run id: '${{github.run_id }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Server URL:  '${{ github.server_url }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Repository:  '${{ github.repository }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Full Runner URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Head Ref:  '${{ github.head_ref}}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Base Ref:  '${{ github.base_ref}}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• Pull Request Number:  '${{ github.event.pull_request.number }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• PR URL:  '${{ github.event.pull_request.html_url }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• HEAD Commit URL:  '${{ github.event.head_commit.url }}'"
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• "
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• "
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• "
-#                      }
-#                    },
-#                    {
-#                      "type": "section",
-#                      "text": {
-#                        "type": "mrkdwn",
-#                        "text": "• "
-#                      }
-#                    }
-#                  ]
-#                }
-#              ]
-#            }
-#
-#
-#
-#
 
 
 
 # this type of integration is also cool : https://github.com/voxmedia/github-action-slack-notify-build
 #https://raw.githubusercontent.com/voxmedia/github-action-slack-notify-build/main/docs/updating_message.gif
 # this slack , hosted by anshsachdeva2013 : https://app.slack.com/client/T037QDTAE9M/C03825HTMJ9
-
-
-#      - name: validate commit format -- Check if HEAD commit message contains [xyz] or FAIL
-#        uses: gsactions/commit-message-checker@v1
-#        with:
-#          excludeDescription: 'true'                # optional: this excludes the description body of a pull request
-#          excludeTitle: 'true'                      # optional: this excludes the title of a pull request
-#          pattern: '^\[[^]]+\].+'                   # this pattern will take all commits as input and check weather the head commit have one  [..] block
-#          flags: 'g' # more discussion here : https://github.com/GsActions/commit-message-checker/discussions/61,
-#          error: 'Your head commit must contain `[..]` like "[BUGFIX] or [SDK-974]".'
-#          checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
-#          accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
-#          #pattern: '^[^#].{74}'     error: 'The maximum line length of 74 characters is exceeded.'
-#          #pattern: '^.+(Resolves|Fixes): \#[0-9]+$' #  Check for Resolves / Fixes

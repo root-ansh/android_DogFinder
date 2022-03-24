@@ -9,8 +9,19 @@ runs:
           txt: ['CHANGELOG.txt']
 
     - name: FAIL if mandatory files are not changed
-      if: ${{ steps.filter.outputs.txt == 'false' }}
+      if: always() #${{ steps.filter.outputs.txt == 'false' }}
       uses: actions/github-script@v3
       with:
         script: |
-          core.setFailed('Mandatory markdown files were not changed')
+          core.setOutput('slack_msg', 'mandatory file changes');
+#         core.setFailed('Mandatory markdown files were not changed')
+
+#  - name: Set Output
+#    shell: bash
+#    run: |
+#      echo "slack_msg=mandatory file changes  : 🔜" >> $GITHUB_ENV
+#  - name: Use the value
+#    id: step_two
+#    shell: bash
+#    run: |
+#      echo "${{ env.action_state }}" # This will output 'yellow'

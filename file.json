@@ -1,13 +1,21 @@
 {
   "attachments": [
     {
+      "color": "#4ddbff",
       "blocks": [
         {
           "type": "section",
           "text": {
-            "type": "plain_text",
-            "text": "GitHub Action build results ℹ️ ️",
+            "type": "mrkdwn",
+            "text": "*GitHub Action build results*  ℹ️️",
             "emoji": true
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "• step info ${{INPUT_SLACK_MSG}}"
           }
         },
         {
@@ -17,34 +25,9 @@
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "Following action Ran : <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|action name>",
-            "text": "Action ran for following  commit :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
+            "text": "• commit info :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
           }
         },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "Commit Info:"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Head Commit url: ${{github.event.head_commit.url}}"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Head Commit message: ${{github.event.head_commit.message}}"
-          }
-        },
-
-
-
 
         {
           "type": "section",
@@ -53,97 +36,15 @@
             "text": "• Job Status:  '${{ job.status }}'"
           }
         },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Run id: '${{github.run_id }}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Server URL:  '${{ github.server_url }}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Repository:  '${{ github.repository }}'"
-          }
-        },
+
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
             "text": "• Full Runner URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
           }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Head Ref:  '${{ github.head_ref}}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Base Ref:  '${{ github.base_ref}}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Pull Request Number:  '${{ github.event.pull_request.number }}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• PR URL:  '${{ github.event.pull_request.html_url }}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• HEAD Commit URL:  '${{ github.event.head_commit.url }}'"
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• "
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• "
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• "
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• "
-          }
         }
+
       ]
     }
   ]

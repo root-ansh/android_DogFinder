@@ -1,0 +1,8 @@
+name: "Checkout code"
+description: "Checkout code"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2

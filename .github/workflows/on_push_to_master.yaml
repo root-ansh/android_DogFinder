@@ -17,6 +17,13 @@ jobs:
 #      - name: Slack Status Notification
 #        uses: ./.github/mini_flows/s9_git_release
 
+      - name: Mandaory File Changes
+        uses: ./.github/mini_flows/s1_mandatory_filechanges
+
+
+#      - name: Slack Status Notification
+#        uses: ./.github/mini_flows/s9_git_release
+
       - name: Setup JDK 11.
         uses: ./.github/mini_flows/s2_setup_jdk
 

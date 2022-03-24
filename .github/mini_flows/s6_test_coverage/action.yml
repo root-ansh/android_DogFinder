@@ -1,8 +1,17 @@
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v2
+    - name: Run Unit Tests And Code Coverage
+      run: ./gradlew jacocoTestReportDebug jacocoTestReportRelease
+
+    - name: Upload Unit tests
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+        name: unit-tests-results.zip
+        path: |
+          app/build/reports/tests
+          app/build/reports/jacoco
+
+          dog_network/build/reports/tests
+          dog_network/build/reports/jacoco

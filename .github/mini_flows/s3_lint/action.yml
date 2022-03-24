@@ -1,8 +1,14 @@
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v2
+    - name: Check lint
+      run: ./gradlew lint
+
+    - name: Upload Lint results
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+        name: lint_results
+        path:  |
+          app/build/reports/lint-results-debug.html
+          dog_network/build/reports/lint-results-debug.html

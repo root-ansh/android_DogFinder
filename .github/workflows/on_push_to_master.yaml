@@ -52,20 +52,11 @@ jobs:
 #        uses: ./.github/mini_flows/s9_git_release
 
 
-      - name: Unit Tests and Jacoco Coverage (DEBUG)
+      - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
         uses: ./.github/mini_flows/s6_test_coverage
 
 #      - name: Slack Status Notification
 #        uses: ./.github/mini_flows/s9_git_release
-
-
-
-      - name: Unit Tests and Jacoco Coverage (RELEASE)
-        uses: ./.github/mini_flows/s6_test_coverage
-
-      #      - name: Slack Status Notification
-      #        uses: ./.github/mini_flows/s9_git_release
-
 
 
       - name: Build Code
@@ -90,76 +81,9 @@ jobs:
 #        uses: ./.github/mini_flows/s9_git_release
 
 
-#      - name: set up JDK 11
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '11'
-#          distribution: 'temurin'
-#          cache: gradle
-#
-#      - name: Check lint
-#        run: ./gradlew lint
-#
-#      - name: Upload Lint results
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: lint_results
-#          path:  |
-#            app/build/reports/lint-results-debug.html
-#            dog_network/build/reports/lint-results-debug.html
-#
-#      - name: CodeAnalysis via  detekt
-#        run: ./gradlew detekt
-#
-#      - name: Upload detekt results
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: detekt_results
-#          path:  |
-#            app/build/reports/detekt
-#            dog_network/build/reports/detekt
-#
-#      - name: CodeAnalysis via  checkstyle
-#        run: ./gradlew checkstyle
-#
-#      - name: Upload checkstyle results
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: checkstyle_results
-#          path: |
-#            app/build/reports/checkstyle
-#            dog_network/build/reports/checkstyle
-#
-#      - name: Run Unit Tests And Code Coverage
-#        run: ./gradlew jacocoTestReportDebug
-#
-#      - name: Upload Unit tests
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: unit-tests-results.zip
-#          path: |
-#            app/build/reports/tests
-#            app/build/reports/jacoco
-#
-#            dog_network/build/reports/tests
-#            dog_network/build/reports/jacoco
-#
-#      - name: Generate AAR and APK files
-#        run: ./gradlew assembleDebug
-#
-#      - name: Upload AAR files
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: unit-tests-results.zip
-#          path: |
-#            app/build/outputs/apk/debug/app-debug.apk
-#            dog_network/build/outputs/aar
-#
+
+
+
 #      - name: Send custom JSON data to Slack workflow
 #        id: slack
 #        if: always()

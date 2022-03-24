@@ -1,8 +1,14 @@
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v2
+    - name: Generate AAR and APK files
+      run: ./gradlew assembleDebug
+
+    - name: Upload AAR files
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+        name: unit-tests-results.zip
+        path: |
+          app/build/outputs/apk/debug/app-debug.apk
+          dog_network/build/outputs/aar

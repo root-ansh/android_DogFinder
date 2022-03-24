@@ -1,8 +1,14 @@
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v2
+    - name: CodeAnalysis via  checkstyle
+      run: ./gradlew checkstyle
+
+    - name: Upload checkstyle results
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
+        name: checkstyle_results
+        path: |
+          app/build/reports/checkstyle
+          dog_network/build/reports/checkstyle

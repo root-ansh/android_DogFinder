@@ -17,7 +17,7 @@ runs:
     - name: Set Output
       if: always()
       uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
-      with:
-        script: |
-          core.setOutput('slack_msg', 'github release: 🔜');
+      shell: bash
+      run: |
+        echo "slack_msg= xyz: 🔜" >> $GITHUB_ENV
 

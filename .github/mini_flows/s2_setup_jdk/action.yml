@@ -11,6 +11,6 @@ runs:
     - name: Set Output
       if: always()
       uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
-      with:
-        script: |
-          core.setOutput('slack_msg', 'Setup JDK 11: 🔜');
+      shell : bash
+      run: |
+        echo "slack_msg=Setup JDK 11  : 🔜" >> $GITHUB_ENV

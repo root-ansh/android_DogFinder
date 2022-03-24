@@ -23,7 +23,6 @@ jobs:
       - name: Mandaory File Changes
         uses: ./.github/mini_flows/s1_mandatory_filechanges
 
-
       - name: Slack Status Notification
         if: always()
         uses: ./.github/mini_flows/ss1_slack

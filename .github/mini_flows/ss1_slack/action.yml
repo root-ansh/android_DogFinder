@@ -1,3 +1,7 @@
+inputs:
+  SLACK_WEBHOOK_URL:
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -6,7 +10,7 @@ runs:
 
       uses: slackapi/slack-github-action@v1.18.0
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }} #${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       with:
         payload: |

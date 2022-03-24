@@ -16,62 +16,70 @@ jobs:
 
       - name: Slack Status Notification
         if: always()
-        uses: ./.github/mini_flows/s9_git_release
+        uses: ./.github/mini_flows/ss1_slack
 
       - name: Mandaory File Changes
         uses: ./.github/mini_flows/s1_mandatory_filechanges
 
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
       - name: Setup JDK 11.
         uses: ./.github/mini_flows/s2_setup_jdk
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Run lint tests and Upload results
         uses: ./.github/mini_flows/s3_lint
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Static Code Check Via detekt
         uses: ./.github/mini_flows/s4_detekt
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Static Code Check Via checkstyle
         uses: ./.github/mini_flows/s5_checkstyle
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
         uses: ./.github/mini_flows/s6_test_coverage
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Build Code
         uses: ./.github/mini_flows/s7_build
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Release to maven central
         uses: ./.github/mini_flows/s8_maven_release
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
       - name: Relase to github
@@ -79,7 +87,8 @@ jobs:
 
 
       - name: Slack Status Notification
-        uses: ./.github/mini_flows/s9_git_release
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
 
 
 

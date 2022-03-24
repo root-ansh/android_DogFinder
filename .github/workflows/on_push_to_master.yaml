@@ -103,6 +103,9 @@ jobs:
         id: slack
         if: always()
         uses: slackapi/slack-github-action@v1.18.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
           payload: |
             {
@@ -255,9 +258,7 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
 
 # this type of integration is also cool : https://github.com/voxmedia/github-action-slack-notify-build
 #https://raw.githubusercontent.com/voxmedia/github-action-slack-notify-build/main/docs/updating_message.gif

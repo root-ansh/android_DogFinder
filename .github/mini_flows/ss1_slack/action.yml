@@ -23,7 +23,7 @@ runs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "*GitHub Action build results*  ℹ️️",
+                      "text": "*GitHub Action build results*  ℹ️️"
                     }
                   },
                   {

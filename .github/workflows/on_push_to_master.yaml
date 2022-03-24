@@ -18,7 +18,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Mandaory File Changes
         uses: ./.github/mini_flows/s1_mandatory_filechanges
@@ -28,7 +28,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Setup JDK 11.
         uses: ./.github/mini_flows/s2_setup_jdk
@@ -37,7 +37,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Run lint tests and Upload results
@@ -47,7 +47,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Static Code Check Via detekt
@@ -57,7 +57,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Static Code Check Via checkstyle
@@ -67,7 +67,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
@@ -77,7 +77,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Build Code
@@ -87,7 +87,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Release to maven central
@@ -97,7 +97,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       - name: Relase to github
@@ -108,7 +108,7 @@ jobs:
         if: always()
         uses: ./.github/mini_flows/ss1_slack
         with:
-          who-to-greet: ${{ secrets.SLACK_WEBHOOK_URL }}
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
 

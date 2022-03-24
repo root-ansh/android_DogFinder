@@ -24,7 +24,6 @@ runs:
                     "text": {
                       "type": "mrkdwn",
                       "text": "*GitHub Action build results*  ℹ️️",
-                      "emoji": true
                     }
                   },
                   {

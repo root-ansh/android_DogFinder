@@ -2,6 +2,7 @@ runs:
   using: "composite"
   steps:
     - name: Check lint
+      shell: bash
       run: ./gradlew lint
 
     - name: Upload Lint results

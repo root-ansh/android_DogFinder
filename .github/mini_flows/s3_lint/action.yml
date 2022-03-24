@@ -2,7 +2,6 @@ runs:
   using: "composite"
   steps:
     - name: Check lint
-      if: success()
       shell: bash
       run: ./gradlew lint
 

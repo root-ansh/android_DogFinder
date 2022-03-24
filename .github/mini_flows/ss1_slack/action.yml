@@ -2,7 +2,6 @@ runs:
   using: "composite"
   steps:
     - name: Release on Github.
-      if: success()
       shell: bash
       run:  echo "hello"
 #      uses: "marvinpinto/action-automatic-releases@latest"

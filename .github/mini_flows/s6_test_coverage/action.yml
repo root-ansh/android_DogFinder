@@ -2,7 +2,6 @@ runs:
   using: "composite"
   steps:
     - name: Run Unit Tests And Code Coverage
-      if: success()
       shell: bash
       run: ./gradlew jacocoTestReportDebug jacocoTestReportRelease
 

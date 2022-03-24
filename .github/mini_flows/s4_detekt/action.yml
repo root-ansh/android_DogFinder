@@ -2,7 +2,6 @@ runs:
   using: "composite"
   steps:
     - name: CodeAnalysis via  detekt
-      if: success()
       shell: bash
       run: ./gradlew detekt
 

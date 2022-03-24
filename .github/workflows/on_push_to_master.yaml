@@ -19,84 +19,84 @@ jobs:
 #        uses: ./.github/mini_flows/s9_git_release
 
       - name: Mandaory File Changes
-        if: always()
+
         uses: ./.github/mini_flows/s1_mandatory_filechanges
 
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
       - name: Setup JDK 11.
-        if: always()
+
         uses: ./.github/mini_flows/s2_setup_jdk
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Run lint tests and Upload results
-        if: always()
+
         uses: ./.github/mini_flows/s3_lint
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Static Code Check Via detekt
-        if: always()
+
         uses: ./.github/mini_flows/s4_detekt
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Static Code Check Via checkstyle
-        if: always()
+
         uses: ./.github/mini_flows/s5_checkstyle
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
-        if: always()
+
         uses: ./.github/mini_flows/s6_test_coverage
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Build Code
-        if: always()
+
         uses: ./.github/mini_flows/s7_build
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Release to maven central
-        if: always()
+
         uses: ./.github/mini_flows/s8_maven_release
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
       - name: Relase to github
-        if: always()
+
         uses: ./.github/mini_flows/s9_git_release
 
 
 #      - name: Slack Status Notification
-#        if: always()
+#
 #        uses: ./.github/mini_flows/s9_git_release
 
 
@@ -105,7 +105,7 @@ jobs:
 
 #      - name: Send custom JSON data to Slack workflow
 #        id: slack
-#        if: always()
+#
 #        uses: slackapi/slack-github-action@v1.18.0
 #        env:
 #          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

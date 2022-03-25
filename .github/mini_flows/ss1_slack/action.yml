@@ -8,21 +8,21 @@ runs:
   using: "composite"
   steps:
     - name: setColor if success
-      if: ${{job.status === 'success'}}
+      if: success()
       shell: bash
       run: |
         echo "STATUS_COLOR=good" >> $GITHUB_ENV
         echo "STATUS_EMOJI=💚" >> $GITHUB_ENV
 
     - name: setColor if failure
-      if: ${{job.status === 'failure'}}
+      if: failure()
       shell: bash
       run: |
         echo "STATUS_COLOR=danger" >> $GITHUB_ENV
         echo "STATUS_EMOJI=💔" >> $GITHUB_ENV
 
     - name: setColor if cancelled
-      if: ${{job.status === 'cancelled'}}
+      if: cancelled()
       shell: bash
       run: |
         echo "STATUS_COLOR=danger" >> $GITHUB_ENV

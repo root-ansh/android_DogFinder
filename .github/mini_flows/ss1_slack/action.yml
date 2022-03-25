@@ -19,7 +19,7 @@ runs:
           {
             "attachments": [
               {
-                "color": "#4ddbff",
+                "color": "${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'",
                 "blocks": [
                   {
                     "type": "section",

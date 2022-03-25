@@ -1,21 +1,20 @@
 {
   "attachments": [
     {
-      "color": "#4ddbff",
+      "color": "${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'",
       "blocks": [
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "*GitHub Action build results*  ℹ️️",
-            "emoji": true
+            "text": "*GitHub Action build results*  ℹ️️"
           }
         },
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "• step info ${{INPUT_SLACK_MSG}}"
+            "text": "• ${{inputs.LAST_RUN_TASK}} - ${{ job.status }}"
           }
         },
         {
@@ -26,14 +25,6 @@
           "text": {
             "type": "mrkdwn",
             "text": "• commit info :  <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{github.event.head_commit.message}}>"
-          }
-        },
-
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "• Job Status:  '${{ job.status }}'"
           }
         },
 

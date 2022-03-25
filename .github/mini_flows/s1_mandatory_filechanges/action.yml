@@ -1,28 +1,20 @@
 runs:
   using: "composite"
   steps:
-    - name: Setup Path Filter task and Execute
-      uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          txt: ['CHANGELOG.txt']
-
-    - name: FAIL if mandatory files are not changed
-      if: always() #${{ steps.filter.outputs.txt == 'false' }}
-      uses: actions/github-script@v3
-      with:
-        script: |
-         core.setFailed('Mandatory markdown files were not changed')
-
-    - name: Set Output
-      if: always()
+    - name: check commit..
       shell: bash
-      run: |
-        echo "slack_msg=mandatory file changes  : 🔜" >> $GITHUB_ENV
+      run: echo "hello ${{env.slack_msg}}"
 
-#  - name: Use the value
-#    id: step_two
-#    shell: bash
-#    run: |
-#      echo "${{ env.action_state }}" # This will output 'yellow'
+#    - name: Setup Path Filter task and Execute
+#      uses: dorny/paths-filter@v2
+#      id: filter
+#      with:
+#        filters: |
+#          md: ['CHANGELOG.md']
+#
+#    - name: FAIL if mandatory files are not changed
+#      if: ${{ steps.filter.outputs.md == 'false' }}
+#      uses: actions/github-script@v3
+#      with:
+#        script: |
+#          core.setFailed('Mandatory markdown files were not changed')

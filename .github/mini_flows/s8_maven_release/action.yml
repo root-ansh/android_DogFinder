@@ -1,6 +1,10 @@
 runs:
   using: "composite"
   steps:
+    - name: check commit..
+      shell: bash
+      run: echo "hello ${{env.slack_msg}}"
+
 #    - name: Publish to MavenCentral
 #      if: ${{ contains(github.event.head_commit.message, '[UPLOAD]') }}
 #      shell: bash
@@ -13,10 +17,4 @@ runs:
 #        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
 #        SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
 
-    - name: Set Output
-      if: always()
-      uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
-      shell: bash
-      run: |
-        echo "slack_msg= xyz: 🔜" >> $GITHUB_ENV
 

@@ -1,6 +1,8 @@
 inputs:
   SLACK_WEBHOOK_URL:
-    required: true
+    required: false  #todo make madatory
+  LAST_RUN_TASK:
+    required: false #todo make madatory
 
 runs:
   using: "composite"
@@ -10,7 +12,7 @@ runs:
 
       uses: slackapi/slack-github-action@v1.18.0
       env:
-        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }} #${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       with:
         payload: |
@@ -30,7 +32,7 @@ runs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "• step info ${{env.slack_msg}}"
+                      "text": "• ${{inputs.LAST_RUN_TASK}} - ${{ job.status }}"
                     }
                   },
                   {
@@ -48,14 +50,6 @@ runs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "• Job Status:  '${{ job.status }}'"
-                    }
-                  },
-
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
                       "text": "• Full Runner URL: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
                     }
                   }
@@ -64,6 +58,3 @@ runs:
               }
             ]
           }
-
-
-

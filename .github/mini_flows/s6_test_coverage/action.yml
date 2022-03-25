@@ -16,10 +16,3 @@ runs:
 
           dog_network/build/reports/tests
           dog_network/build/reports/jacoco
-
-    - name: Set Output
-      if: always()
-      uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
-      shell: bash
-      run: |
-        echo "slack_msg=tests and coverage: 🔜" >> $GITHUB_ENV

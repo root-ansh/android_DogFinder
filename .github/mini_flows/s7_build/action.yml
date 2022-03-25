@@ -5,18 +5,16 @@ runs:
       shell: bash
       run: ./gradlew assembleDebug
 
-    - name: Upload AAR files
+    - name: Upload AAR and apk files
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: unit-tests-results.zip
+        name: aars_and_apks.zip
         path: |
           app/build/outputs/apk/debug/app-debug.apk
           dog_network/build/outputs/aar
 
-    - name: Set Output
-      if: always()
-      uses: actions/github-script@v3 #todo pass fail cancelled ke alag alag status
-      shell: bash
-      run: |
-        echo "slack_msg=build code: 🔜" >> $GITHUB_ENV
+#    - name: Set Output
+#      if: always()
+#      shell: bash
+#      run: echo "slack_msg=build code--🔜" >> $GITHUB_ENV

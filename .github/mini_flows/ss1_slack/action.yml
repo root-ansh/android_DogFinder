@@ -11,21 +11,21 @@ runs:
       if: success()
       shell: bash
       run: |
-        echo "STATUS_COLOR=good" >> $GITHUB_ENV
+        echo "STATUS_COLOR=#00c247" >> $GITHUB_ENV
         echo "STATUS_EMOJI=💚" >> $GITHUB_ENV
 
     - name: setColor if failure
       if: failure()
       shell: bash
       run: |
-        echo "STATUS_COLOR=danger" >> $GITHUB_ENV
+        echo "STATUS_COLOR=#fc0703" >> $GITHUB_ENV
         echo "STATUS_EMOJI=💔" >> $GITHUB_ENV
 
     - name: setColor if cancelled
       if: cancelled()
       shell: bash
       run: |
-        echo "STATUS_COLOR=danger" >> $GITHUB_ENV
+        echo "STATUS_COLOR=#fc9003" >> $GITHUB_ENV
         echo "STATUS_EMOJI=✖️" >> $GITHUB_ENV
 
     - name: Send custom JSON data to Slack workflow.

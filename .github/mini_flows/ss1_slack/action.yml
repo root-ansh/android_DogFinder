@@ -7,6 +7,27 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: setColor if success
+      if: ${{job.status === 'success'}}
+      shell: bash
+      run: |
+        echo "STATUS_COLOR=good" >> $GITHUB_ENV
+        echo "STATUS_EMOJI=💚" >> $GITHUB_ENV
+
+    - name: setColor if failure
+      if: ${{job.status === 'failure'}}
+      shell: bash
+      run: |
+        echo "STATUS_COLOR=danger" >> $GITHUB_ENV
+        echo "STATUS_EMOJI=💔" >> $GITHUB_ENV
+
+    - name: setColor if cancelled
+      if: ${{job.status === 'cancelled'}}
+      shell: bash
+      run: |
+        echo "STATUS_COLOR=danger" >> $GITHUB_ENV
+        echo "STATUS_EMOJI=✖️" >> $GITHUB_ENV
+
     - name: Send custom JSON data to Slack workflow.
       id: slack
 
@@ -19,7 +40,7 @@ runs:
           {
             "attachments": [
               {
-                "color": "${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'",
+                "color": "${{env.STATUS_COLOR}}",
                 "blocks": [
                   {
                     "type": "section",
@@ -32,7 +53,7 @@ runs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "• ${{inputs.LAST_RUN_TASK}} - ${{ job.status }}"
+                      "text": "• ${{inputs.LAST_RUN_TASK}} - ${{ job.status }} ${{env.STATUS_EMOJI}}"
                     }
                   },
                   {

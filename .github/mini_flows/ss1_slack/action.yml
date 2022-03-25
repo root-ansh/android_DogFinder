@@ -7,19 +7,19 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: setColor if success
-      if: success()
-      shell: bash
-      run: |
-        echo "STATUS_COLOR=#00c247" >> $GITHUB_ENV
-        echo "STATUS_EMOJI=💚" >> $GITHUB_ENV
-
     - name: setColor if failure
       if: failure()
       shell: bash
       run: |
         echo "STATUS_COLOR=#fc0703" >> $GITHUB_ENV
         echo "STATUS_EMOJI=💔" >> $GITHUB_ENV
+
+    - name: setColor if success
+      if: success()
+      shell: bash
+      run: |
+        echo "STATUS_COLOR=#00c247" >> $GITHUB_ENV
+        echo "STATUS_EMOJI=💚" >> $GITHUB_ENV
 
     - name: setColor if cancelled
       if: cancelled()
@@ -30,7 +30,6 @@ runs:
 
     - name: Send custom JSON data to Slack workflow.
       id: slack
-
       uses: slackapi/slack-github-action@v1.18.0
       env:
         SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}

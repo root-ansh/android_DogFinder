@@ -1,4 +1,4 @@
-name: build a
+name: build apk
 on:
   push:
     branches: [ master ]

@@ -1,140 +1,140 @@
-#name: task - validate commit on master
-#on:
-#  push:
-#    branches: [ master ]
-#
-#jobs:
-#  lint-staticChecks-test-build:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
-#
-#    steps:
-#      - name: Setup actions
-#        uses: actions/checkout@v2
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Check out code"
-#
-#      - name: Commit Rules Enforcement
-#        uses: ./.github/mini_flows/ss2_commit_check
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Commit Rules Enforcement"
-#
-#
-#      - name: Mandatory File Changes
-#        uses: ./.github/mini_flows/s1_mandatory_filechanges
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Mandatory File Changes"
-#
-#      - name: Setup JDK 11.
-#        uses: ./.github/mini_flows/s2_setup_jdk
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Setup JDK 11."
-#
-#
-#      - name: Run lint tests and Upload results
-#        uses: ./.github/mini_flows/s3_lint
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Run lint tests and Upload results"
-#
-#
-#      - name: Static Code Check Via detekt
-#        uses: ./.github/mini_flows/s4_detekt
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Static Code Check Via detekt"
-#
-#
-#      - name: Static Code Check Via checkstyle
-#        uses: ./.github/mini_flows/s5_checkstyle
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Static Code Check Via checkstyle"
-#
-#
-#      - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
-#        uses: ./.github/mini_flows/s6_test_coverage
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)"
-#
-#
-#      - name: Build Code
-#        uses: ./.github/mini_flows/s7_build
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Build Code"
-#
-#
-#      - name: Release to maven central
-#        uses: ./.github/mini_flows/s8_maven_release
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Release to maven central"
-#
-#      - name: Relase to github
-#        uses: ./.github/mini_flows/s9_git_release
-#
-#
-#      - name: slack_notif
-#        if: always()
-#        uses: ./.github/mini_flows/ss1_slack
-#        with:
-#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          LAST_RUN_TASK: "Relase to github"
-#
-#
-#
-#
-#
-#
-#
-## this type of integration is also cool : https://github.com/voxmedia/github-action-slack-notify-build
-##https://raw.githubusercontent.com/voxmedia/github-action-slack-notify-build/main/docs/updating_message.gif
-## this slack , hosted by anshsachdeva2013 : https://app.slack.com/client/T037QDTAE9M/C03825HTMJ9
+name: task - validate commit on master
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  lint-staticChecks-test-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Setup actions
+        uses: actions/checkout@v2
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Check out code"
+
+      - name: Commit Rules Enforcement
+        uses: ./.github/mini_flows/ss2_commit_check
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Commit Rules Enforcement"
+
+
+      - name: Mandatory File Changes
+        uses: ./.github/mini_flows/s1_mandatory_filechanges
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Mandatory File Changes"
+
+      - name: Setup JDK 11.
+        uses: ./.github/mini_flows/s2_setup_jdk
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Setup JDK 11."
+
+
+      - name: Run lint tests and Upload results
+        uses: ./.github/mini_flows/s3_lint
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Run lint tests and Upload results"
+
+
+      - name: Static Code Check Via detekt
+        uses: ./.github/mini_flows/s4_detekt
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Static Code Check Via detekt"
+
+
+      - name: Static Code Check Via checkstyle
+        uses: ./.github/mini_flows/s5_checkstyle
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Static Code Check Via checkstyle"
+
+
+      - name: Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)
+        uses: ./.github/mini_flows/s6_test_coverage
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Unit Tests and Jacoco Coverage (DEBUG AND RELEASE)"
+
+
+      - name: Build Code
+        uses: ./.github/mini_flows/s7_build
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Build Code"
+
+
+      - name: Release to maven central
+        uses: ./.github/mini_flows/s8_maven_release
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Release to maven central"
+
+      - name: Relase to github
+        uses: ./.github/mini_flows/s9_git_release
+
+
+      - name: slack_notif
+        if: always()
+        uses: ./.github/mini_flows/ss1_slack
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          LAST_RUN_TASK: "Relase to github"
+
+
+
+
+
+
+
+# this type of integration is also cool : https://github.com/voxmedia/github-action-slack-notify-build
+#https://raw.githubusercontent.com/voxmedia/github-action-slack-notify-build/main/docs/updating_message.gif
+# this slack , hosted by anshsachdeva2013 : https://app.slack.com/client/T037QDTAE9M/C03825HTMJ9

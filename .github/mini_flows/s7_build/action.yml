@@ -1,20 +1,24 @@
 runs:
   using: "composite"
   steps:
-    - name: Generate AAR and APK files
+    - name: app>> Generate AAR and APK files
       shell: bash
-      run: ./gradlew assembleDebug
+      run: ./gradlew :app:assembleDebug
 
-    - name: Upload AAR and apk files
+    - name: app>> Upload AAR/APK files
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: aars_and_apks.zip
-        path: |
-          app/build/outputs/apk/debug/app-debug.apk
-          dog_network/build/outputs/aar
+        name: app
+        path: app/build/outputs/apk/debug/app-debug.apk
 
-#    - name: Set Output
-#      if: always()
-#      shell: bash
-#      run: echo "slack_msg=build code--🔜" >> $GITHUB_ENV
+    - name: dog_network>> Generate AAR and APK files
+      shell: bash
+      run: ./gradlew :dog_network:assembleDebug
+
+    - name: dog_network>> Upload AAR/APK files
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: dog_network
+        path: dog_network/build/outputs/aar

@@ -1,18 +1,39 @@
 runs:
   using: "composite"
   steps:
-    - name: Run Unit Tests And Code Coverage
+    - name: app>> Run Unit Tests And Code Coverage
       shell: bash
-      run: ./gradlew jacocoTestReportDebug jacocoTestReportRelease
+      run: ./gradlew :app:jacocoTestReportDebug :app:jacocoTestReportRelease
 
-    - name: Upload Unit tests
+    - name: app>> Upload Unit tests Report
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: unit-tests-results.zip
-        path: |
-          app/build/reports/tests
-          app/build/reports/jacoco
+        name: app_unit_test
+        path: app/build/reports/tests
 
-          dog_network/build/reports/tests
-          dog_network/build/reports/jacoco
+    - name: app>> Upload Code Coverage Report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: app_coverage
+        path:  app/build/reports/jacoco
+
+    - name: dog_network>> Run Unit Tests And Code Coverage
+      shell: bash
+      run: ./gradlew :dog_network:jacocoTestReportDebug :dog_network:jacocoTestReportRelease
+
+    - name: dog_network>> Upload Unit tests Report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: dog_network_unit_test
+        path: dog_network/build/reports/tests
+
+    - name: dog_network>> Upload Code Coverage Report
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: dog_network_coverage
+        path:  dog_network/build/reports/jacoco
+

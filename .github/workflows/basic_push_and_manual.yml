@@ -1,54 +1,54 @@
-name: build apk  #
-on:
-  push:
-    branches: [ master ]
-
-  workflow_dispatch:
-    inputs:
-      tag_name:
-        description: 'enter a tag name:' #
-        required: false
-        type: string
-
-      title:
-        description: 'enter a release title:' #
-        required: false
-        type: string
-
-#-------------------------------------------------------------
-jobs:
-  log-the-inputs: #
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Setup Actions. #
-        uses: actions/checkout@v2
-        #-------------------------------------------------------------
-
-
-      - name: Set up JDK 11. #
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-        #-------------------------------------------------------------
-
-
-      - name: Check lint #
-        shell: bash
-        run: ./gradlew :app:lint
-        #-------------------------------------------------------------
-
-
-      - name: Upload Lint results #
-        if: success()
-        uses: actions/upload-artifact@v2
-        with:
-          name: lint_results #
-          path: |
-            app/build/reports/lint-results-debug.html
-        #-------------------------------------------------------------
-
-      - name: Generate AAR and APK files. #
-        run: ./gradlew :app:assembleDebug
+#name: build apk  #
+#on:
+#  push:
+#    branches: [ master ]
+#
+#  workflow_dispatch:
+#    inputs:
+#      tag_name:
+#        description: 'enter a tag name:' #
+#        required: false
+#        type: string
+#
+#      title:
+#        description: 'enter a release title:' #
+#        required: false
+#        type: string
+#
+##-------------------------------------------------------------
+#jobs:
+#  log-the-inputs: #
+#    runs-on: ubuntu-latest
+#    steps:
+#
+#      - name: Setup Actions. #
+#        uses: actions/checkout@v2
+#        #-------------------------------------------------------------
+#
+#
+#      - name: Set up JDK 11. #
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#          cache: gradle
+#        #-------------------------------------------------------------
+#
+#
+#      - name: Check lint #
+#        shell: bash
+#        run: ./gradlew :app:lint
+#        #-------------------------------------------------------------
+#
+#
+#      - name: Upload Lint results #
+#        if: success()
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: lint_results #
+#          path: |
+#            app/build/reports/lint-results-debug.html
+#        #-------------------------------------------------------------
+#
+#      - name: Generate AAR and APK files. #
+#        run: ./gradlew :app:assembleDebug

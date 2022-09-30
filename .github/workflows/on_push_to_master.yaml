@@ -32,8 +32,8 @@ jobs:
           LAST_RUN_TASK: "Commit Rules Enforcement"
 
 
-      - name: Mandatory File Changes
-        uses: ./.github/mini_flows/s1_mandatory_filechanges
+      - name: Skip if files not changed
+        uses: ./.github/mini_flows/s1_skip_for_no_imp_file_change
 
       - name: slack_notif
         if: always()

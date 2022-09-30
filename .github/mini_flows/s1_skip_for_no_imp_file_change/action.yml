@@ -1,0 +1,23 @@
+runs:
+  using: "composite"
+  steps:
+    - name: check commit..
+      shell: bash
+      run: echo "hello ${{env.slack_msg}}"
+
+    - name: Setup Path Filter task and Execute
+      uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          java: '**/**.java'
+          kotlin : '**/**.kt'
+          gradle : '**/**.gradle'
+          props : '**/**.properties'
+          json : '**/**.json'
+
+    - name: Skip build Steps if java,kotlin,gradle,props and json files are not changed
+      if: ${{ steps.filter.outputs.java == 'false' && steps.filter.outputs.kotlin == 'false'  && steps.filter.outputs.gradle == 'false' && steps.filter.outputs.props == 'false'  && steps.filter.outputs.json == 'false' }}
+      shell: bash
+      run: echo "SKIP_CODE_CHECKS=true" >> $GITHUB_ENV
+

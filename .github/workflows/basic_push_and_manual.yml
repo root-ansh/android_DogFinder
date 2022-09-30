@@ -1,30 +1,30 @@
-#name: build apk  #
-#on:
-#  push:
-#    branches: [ master ]
-#
-#  workflow_dispatch:
-#    inputs:
-#      tag_name:
-#        description: 'enter a tag name:' #
-#        required: false
-#        type: string
-#
-#      title:
-#        description: 'enter a release title:' #
-#        required: false
-#        type: string
-#
-##-------------------------------------------------------------
-#jobs:
-#  log-the-inputs: #
-#    runs-on: ubuntu-latest
-#    steps:
-#
-#      - name: Setup Actions. #
-#        uses: actions/checkout@v2
-#        #-------------------------------------------------------------
-#
+name: basic_push_and_manual.yml >> build apk  #
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'enter a tag name:' #
+        required: false
+        type: string
+
+      title:
+        description: 'enter a release title:' #
+        required: false
+        type: string
+
+#-------------------------------------------------------------
+jobs:
+  log-the-inputs: #
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Setup Actions. #
+        uses: actions/checkout@v2
+        #-------------------------------------------------------------
+
 #
 #      - name: Set up JDK 11. #
 #        uses: actions/setup-java@v2

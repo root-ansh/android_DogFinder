@@ -1,4 +1,4 @@
-name: task - validate commit on master
+name: on_push_to_master.yaml>> task - validate commit on master
 on:
   push:
     branches: [ master ]

@@ -31,7 +31,7 @@ class DogsRepoTest :BaseTest(){
            val request = repo.getRandomDog()
            Assert.assertTrue(request is BaseResponse.Success)
            request as BaseResponse.Success
-           Assert.assertEquals(request.body.status,fakeResp.status+"///")//fakeResp.status+"/")
+           Assert.assertEquals(request.body.status,fakeResp.status+)//fakeResp.status+"/")
        }
     }
 

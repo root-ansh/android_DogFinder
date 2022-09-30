@@ -1,7 +1,13 @@
 runs:
   using: "composite"
   steps:
+    - name: Check if Skip
+      if: ${{env.SKIP_CODE_CHECKS}}
+      shell: bash
+      run: echo "This step will be skipped"
+
     - name: CodeAnalysis via  checkstyle
+      if: ${{!env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew checkstyle
 

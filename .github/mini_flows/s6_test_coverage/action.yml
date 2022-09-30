@@ -1,39 +1,44 @@
 runs:
   using: "composite"
   steps:
+    - name: Check if Skip
+      if: ${{always() && env.SKIP_CODE_CHECKS}}
+      shell: bash
+      run: echo "This step will be skipped"
+
     - name: app>> Run Unit Tests And Code Coverage
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew :app:jacocoTestReportDebug :app:jacocoTestReportRelease
 
     - name: app>> Upload Unit tests Report
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: app_unit_test
         path: app/build/reports/tests
 
     - name: app>> Upload Code Coverage Report
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: app_coverage
         path:  app/build/reports/jacoco
 
     - name: dog_network>> Run Unit Tests And Code Coverage
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew :dog_network:jacocoTestReportDebug :dog_network:jacocoTestReportRelease
 
     - name: dog_network>> Upload Unit tests Report
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: dog_network_unit_test
         path: dog_network/build/reports/tests
 
     - name: dog_network>> Upload Code Coverage Report
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: dog_network_coverage

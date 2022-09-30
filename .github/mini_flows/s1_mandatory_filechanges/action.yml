@@ -20,7 +20,7 @@ runs:
     - name: Skip build Steps if java,kotlin,gradle,props and json files are not changed
       if: ${{ steps.filter.outputs.java == 'false' && steps.filter.outputs.kotlin == 'false'  && steps.filter.outputs.gradle == 'false' && steps.filter.outputs.props == 'false'  && steps.filter.outputs.json == 'false' }}
       shell: bash
-      run: echo "SKIP_CODE_CHECKS=1" >> $GITHUB_ENV
+      run: echo "SKIP_CODE_CHECKS=true" >> $GITHUB_ENV
 
     - name: FAIL if mandatory files are not changed
       if: ${{ steps.filter.outputs.md == 'false' }}

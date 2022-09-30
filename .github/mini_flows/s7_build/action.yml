@@ -1,23 +1,30 @@
 runs:
   using: "composite"
   steps:
+    - name: Check if Skip
+      if: ${{env.SKIP_CODE_CHECKS}}
+      shell: bash
+      run: echo "This step will be skipped"
+
     - name: app>> Generate AAR and APK files
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew :app:assembleDebug
 
     - name: app>> Upload AAR/APK files
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: app
         path: app/build/outputs/
 
     - name: dog_network>> Generate AAR and APK files
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew :dog_network:assembleDebug
 
     - name: dog_network>> Upload AAR/APK files
-      if: always()
+      if: ${{always() && !env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: dog_network

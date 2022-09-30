@@ -1,7 +1,7 @@
 buildscript {
     project.ext {
         PUBLISH_GROUP_ID = 'work.curioustools'
-        PUBLISH_VERSION = '1.0.7'
+        PUBLISH_VERSION = '1.0.8'
     }
     repositories {
         google()

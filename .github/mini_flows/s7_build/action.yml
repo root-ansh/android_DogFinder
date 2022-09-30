@@ -10,7 +10,7 @@ runs:
       uses: actions/upload-artifact@v2
       with:
         name: app
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/
 
     - name: dog_network>> Generate AAR and APK files
       shell: bash
@@ -21,4 +21,4 @@ runs:
       uses: actions/upload-artifact@v2
       with:
         name: dog_network
-        path: dog_network/build/outputs/aar
+        path: dog_network/build/outputs/

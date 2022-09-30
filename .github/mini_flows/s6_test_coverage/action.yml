@@ -2,6 +2,7 @@ runs:
   using: "composite"
   steps:
     - name: app>> Run Unit Tests And Code Coverage
+      if: always()
       shell: bash
       run: ./gradlew :app:jacocoTestReportDebug :app:jacocoTestReportRelease
 
@@ -20,6 +21,7 @@ runs:
         path:  app/build/reports/jacoco
 
     - name: dog_network>> Run Unit Tests And Code Coverage
+      if: always()
       shell: bash
       run: ./gradlew :dog_network:jacocoTestReportDebug :dog_network:jacocoTestReportRelease
 

@@ -2,11 +2,12 @@ runs:
   using: "composite"
   steps:
     - name: Check lint
+      if:  ${{!env.SKIP_CODE_CHECKS}}
       shell: bash
       run: ./gradlew lint
 
     - name: Upload Lint results
-      if: always()
+      if:  ${{!env.SKIP_CODE_CHECKS}}
       uses: actions/upload-artifact@v2
       with:
         name: lint_results
